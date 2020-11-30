@@ -24,9 +24,27 @@
                 android:id="@+id/refresh"
                 app:showAsAction="never"/>
             <item
+                android:title="Lost"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:id="@+id/Lost"
+                app:showAsAction="never"/>
+
+            <item
+                android:title="Found"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:id="@+id/Found"
+                app:showAsAction="never"/>
+
+            <item
                 android:title="Log Out"
                 android:icon="@drawable/ic_baseline_settings_24"
                 android:id="@+id/logOut"
+                app:showAsAction="never"/>
+
+            <item
+                android:title="Credits"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:id="@+id/Credits"
                 app:showAsAction="never"/>
 
         </menu>

@@ -39,11 +39,18 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"Refresh",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 return true;
+            case R.id.Lost:
+                Toast.makeText(this,"Lost",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),Settings.class));
+                return true;
+            case R.id.Found:
+                Toast.makeText(this,"Found",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),Settings.class));
+                return true;
             case R.id.logOut:
                 FirebaseAuth.getInstance().signOut();//logout
                 startActivity(new Intent(getApplicationContext(),Login.class));
                 finish();
-
             default:
                 return super.onOptionsItemSelected(item);
 
