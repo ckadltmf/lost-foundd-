@@ -58,7 +58,7 @@ public class Settings extends AppCompatActivity {
         fullName = findViewById(R.id.profileName);
         email    = findViewById(R.id.profileEmail);
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
-       
+
 
 
         profileImage = findViewById(R.id.profileImage);
