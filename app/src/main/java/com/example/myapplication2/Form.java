@@ -53,12 +53,12 @@ public class Form extends AppCompatActivity  {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email=mEmail.getText().toString().trim();
+                //String email=mEmail.getText().toString().trim();
                 String object=mObject.getText().toString().trim();
-                String fullName = mFullName.getText().toString();
-                final String phone = mPhone.getText().toString();
+                //String fullName = mFullName.getText().toString();
+                //final String phone = mPhone.getText().toString();
 
-                if(TextUtils.isEmpty(email)){
+/*                if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email Fill is required");
                     return;
                 }
@@ -69,15 +69,15 @@ public class Form extends AppCompatActivity  {
                 if(TextUtils.isEmpty(object)){
                     mFullName.setError("Name Fill is required");
                     return;
-                }
+                }*/
                 if(TextUtils.isEmpty(object)){
                     mPhone.setError("Phone Fill is required");
                     return;
                 }
                             Map<String,Object> forms = new HashMap<>();
-                            forms.put("fName",fullName);
-                            forms.put("email",email);
-                            forms.put("phone",phone);
+                            //forms.put("fName",fullName);
+                            //forms.put("email",email);
+                            //forms.put("phone",phone);
                             forms.put("object",object);
                             fStore.collection("forms").add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
@@ -94,7 +94,7 @@ public class Form extends AppCompatActivity  {
             }
 
         });
-        userId = fAuth.getCurrentUser().getUid();
+/*        userId = fAuth.getCurrentUser().getUid();
         DocumentReference documentReference = fStore.collection("users").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
@@ -108,6 +108,6 @@ public class Form extends AppCompatActivity  {
                     Log.d("tag", "onEvent: Document do not exists");
                 }
             }
-        });
+        });*/
     }
 }
