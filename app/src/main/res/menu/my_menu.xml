@@ -41,6 +41,12 @@
                 app:showAsAction="never"/>
 
             <item
+                android:title="My Posts"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:id="@+id/posts"
+                app:showAsAction="never"/>
+
+            <item
                 android:title="Log Out"
                 android:icon="@drawable/ic_baseline_settings_24"
                 android:id="@+id/logOut"

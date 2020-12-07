@@ -6,4 +6,22 @@
         <item>user</item>
         <item>inspector</item>
     </string-array>
+    <string-array name="Whathappened">
+        <item>Choose Lost or Found</item>
+        <item>Lost</item>
+        <item>Found</item>
+    </string-array>
+    <string-array name="Category">
+        <item>Choose Category</item>
+        <item>Mobile</item>
+        <item>Jewel</item>
+        <item>Clothing</item>
+        <item>Pet</item>
+        <item>Electronics</item>
+        <item>Car</item>
+        <item>Bike</item>
+        <item>Bag</item>
+        <item>Glasses</item>
+        <item>jewel</item>
+    </string-array>
 </resources>

@@ -57,9 +57,10 @@ public class Register extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         mLoginBtn =  findViewById(R.id.createText);
-        _spinner = (Spinner)findViewById(R.id.spinner3);
+        _spinner = /*(Spinner)*/findViewById(R.id.spinner3);
         ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(this, R.array.userType, R.layout.support_simple_spinner_dropdown_item);
         _spinner.setAdapter(adapter);
+
 
 
 
@@ -99,6 +100,11 @@ public class Register extends AppCompatActivity {
                 if(!PasswordConfirm.equals(password)){
                     mPasswordConfirm.setError("The passwords should be the same");
                     return;
+                }
+                if(userType.equals("inspector") && !password.equals("aa11Inspectoraa11")){
+                    mRegisterBtn.setError("You do not have the permission to be an inspector");
+                    return;
+
                 }
                 progressBar.setVisibility(View.VISIBLE);
 

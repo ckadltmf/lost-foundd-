@@ -179,13 +179,12 @@
         android:layout_width="233dp"
         android:layout_height="34dp"
         android:background="#FFFFFF"
-        android:backgroundTint="#fffff"
         app:layout_constraintBottom_toTopOf="@+id/LoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.903"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password"
-        app:layout_constraintVertical_bias="0.795" />
+        app:layout_constraintVertical_bias="0.779" />
 
     <EditText
         android:id="@+id/PasswordConfirm"

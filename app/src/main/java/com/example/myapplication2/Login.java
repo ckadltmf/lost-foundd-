@@ -86,7 +86,7 @@ public class Login extends AppCompatActivity {
                             userType= updateUser.getDisplayName();
                             if(userType.equals("inspector")){
                                 Toast.makeText(Login.this,"Logged in successfully as inspector.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),Form.class));
+                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
                             }
                             else{
