@@ -133,8 +133,6 @@ public class EditProfile extends AppCompatActivity {
                 //profileImage.setImageURI(imageUri);
 
                 uploadImageToFirebase(imageUri);
-
-
             }
         }
 

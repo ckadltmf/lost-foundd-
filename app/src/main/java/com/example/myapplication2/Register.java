@@ -101,8 +101,14 @@ public class Register extends AppCompatActivity {
                     mPasswordConfirm.setError("The passwords should be the same");
                     return;
                 }
-                if(userType.equals("inspector") && !password.equals("aa11Inspectoraa11")){
-                    mRegisterBtn.setError("You do not have the permission to be an inspector");
+                if(userType.equals("Choose User Type")){
+                    Toast.makeText(Register.this,"Please Choose User Type", Toast.LENGTH_LONG).show();
+
+                    return;
+
+                }
+                if(userType.equals("Inspector") && !password.equals("aa11Inspectoraa11")){
+                    Toast.makeText(Register.this,"You do not have the permission to be an inspector", Toast.LENGTH_LONG).show();
                     return;
 
                 }
@@ -125,15 +131,15 @@ public class Register extends AppCompatActivity {
                             user.put("email",email);
                             user.put("phone",phone);
                             //ser.put("type",userType);
-                            if(userType.equals("inspector")){
+                            if(userType.equals("Inspector")){
                                 UserProfileChangeRequest adminprofileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName("inspector").build();
+                                        .setDisplayName("Inspector").build();
 
                                 updateUser.updateProfile(adminprofileUpdates);
                             }
                             else{
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName("user").build();
+                                        .setDisplayName("User").build();
 
                                 updateUser.updateProfile(profileUpdates);
                             }

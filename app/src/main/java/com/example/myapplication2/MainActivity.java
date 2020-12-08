@@ -10,19 +10,41 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    
+    String userType;
+    FirebaseAuth fAuth;
+    FirebaseUser fBase;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fAuth = FirebaseAuth.getInstance();
+        fBase = fAuth.getCurrentUser();
+        assert fBase != null;
+        userType= fBase.getDisplayName();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.my_menu,menu);
         return super.onCreateOptionsMenu(menu);
+    }
 
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        MenuItem register = menu.findItem(R.id.inspectorOptions);
+        if(!userType.equals("Inspector"))
+        {
+            register.setVisible(false);
+        }
+        else
+        {
+            register.setVisible(true);
+        }
+        return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -38,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.refresh:
                 Toast.makeText(this,"Refresh",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                return true;
+            case R.id.inspectorOptions:
+                Toast.makeText(this,"Refresh",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),allObjects.class));
                 return true;
 /*            case R.id.Lost:
                 Toast.makeText(this,"Lost",Toast.LENGTH_SHORT).show();
@@ -67,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
  */
+    }
+
+    public void allPosts(View view) {
+        //FirebaseAuth.getInstance().signOut();//logout
+        startActivity(new Intent(getApplicationContext(),allObjects.class));
+        finish();
     }
 
     public void addform(View view) {

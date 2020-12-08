@@ -9,11 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class Login extends AppCompatActivity {
 
@@ -36,7 +31,7 @@ public class Login extends AppCompatActivity {
     FirebaseAuth fAuth;
     ProgressBar progressBar;
    // StorageReference storageReference;
-   FirebaseUser updateUser;
+   FirebaseUser fBase;
     String userType;
 
     @Override
@@ -80,11 +75,14 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            assert currentUser != null;
                             String RegisteredUserID = currentUser.getUid();
                            // storageReference = FirebaseStorage.getInstance().getReference().child("users").child(RegisteredUserID);
-                            updateUser= fAuth.getCurrentUser();
-                            userType= updateUser.getDisplayName();
-                            if(userType.equals("inspector")){
+                            fBase = fAuth.getCurrentUser();
+                            assert fBase != null;
+                            userType= fBase.getDisplayName();
+                            assert userType != null;
+                            if(userType.equals("Inspector")){
                                 Toast.makeText(Login.this,"Logged in successfully as inspector.", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
