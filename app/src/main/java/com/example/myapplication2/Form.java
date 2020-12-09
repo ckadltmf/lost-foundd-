@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -39,12 +42,13 @@ public class Form extends AppCompatActivity  {
     public static final String TAG = "TAG";
     EditText mObject, mDescription,mPlace;
     Button mSubmit;
+    //FirebaseDatabase FBDB;
+    //DatabaseReference DBRF;
     Spinner Happened_spinner, Category_spinner;
     ImageView ObjectImage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     StorageReference storageReference;
-    //String DR;
     Uri imageUri;
     StorageReference fileRef;
     TextView mDate, imageuploadtext;
@@ -53,6 +57,8 @@ public class Form extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+        //FBDB=FirebaseDatabase.getInstance();
+        //DBRF=FBDB.getReference("forms");
         storageReference = FirebaseStorage.getInstance().getReference();
         Happened_spinner = findViewById(R.id.spinner1);
         Category_spinner = findViewById(R.id.spinner2);
@@ -120,11 +126,12 @@ public class Form extends AppCompatActivity  {
                             Map<String,Object> forms = new HashMap<>();
                             forms.put("UserID",userID);
                             forms.put("Object Title",object);
-                            //forms.put("Lost or Found",happened);
-                            //forms.put("Category",category);
+                            forms.put("Lost or Found",happened);
+                            forms.put("Category",category);
                             forms.put("place",place);
                             forms.put("description",description);
                             forms.put("date",date);
+                            //DBRF.child(category).setValue(forms);
                             fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 
                                 @Override
@@ -141,7 +148,6 @@ public class Form extends AppCompatActivity  {
                                     Toast.makeText(Form.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
                                 }
                             });
-
             }
 
         });

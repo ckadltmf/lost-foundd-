@@ -1,6 +1,7 @@
 package com.example.myapplication2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +48,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.my_menu,menu);
+        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                Toast.makeText(MainActivity.this,"Search expanded",Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                Toast.makeText(MainActivity.this,"Search collapse",Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        };
+
+        menu.findItem(R.id.search_icon).setOnActionExpandListener(onActionExpandListener);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search_icon).getActionView();
+        searchView.setQueryHint("search here...");
+
         return super.onCreateOptionsMenu(menu);
     }
 
