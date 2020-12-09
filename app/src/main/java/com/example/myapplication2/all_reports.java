@@ -24,8 +24,8 @@ public class all_reports extends AppCompatActivity {
     FirebaseUser user;
 
     ListView listView;
-    ArrayList<objectData> arrayList = new ArrayList<>();
-    MyAdapter adapter;
+    ArrayList<ReportData> arrayList = new ArrayList<>();
+    MyReportAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class all_reports extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "blabla data!!!", Toast.LENGTH_LONG).show();
                             int i=1;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                arrayList.add(new objectData(i+") UserID: "+ document.get("UserID").toString(),"Report Subject: "+ document.get("Report Subject").toString() ,"Description: "+ document.get("Description").toString() ));
+                                arrayList.add(new ReportData(i+") UserID: "+ document.get("UserID").toString(),"Report Subject: "+ document.get("Report Subject").toString() ,"Description: "+ document.get("Description").toString() ));
                                 i++;
 
                             }
@@ -54,7 +54,7 @@ public class all_reports extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
 
                         }
-                        adapter = new MyAdapter(all_reports.this, arrayList);
+                        adapter = new MyReportAdapter(all_reports.this, arrayList);
                         listView.setAdapter(adapter);
                     }
                 });

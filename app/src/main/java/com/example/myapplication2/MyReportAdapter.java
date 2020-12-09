@@ -11,9 +11,9 @@ import java.util.List;
 public class MyReportAdapter extends BaseAdapter {
 
     private Context context;
-    private List<objectData> arrayList;
+    private List<ReportData> arrayList;
     private TextView UserID, reportSubject, Description;
-    public MyReportAdapter(Context context, List<objectData> arrayList) {
+    public MyReportAdapter(Context context, List<ReportData> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -33,12 +33,12 @@ public class MyReportAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.activity_report_view, parent, false);
         // serialNum = convertView.findViewById(R.id.serailNumber);
-        UserID = convertView.findViewById(R.id.reportSubject);
-        reportSubject = convertView.findViewById(R.id.UserID);
+        UserID = convertView.findViewById(R.id.UserID);
+        reportSubject = convertView.findViewById(R.id.reportSubject);
         Description = convertView.findViewById(R.id.Description);
         //serialNum.setText(" " + arrayList.get(position).getNum());
-        UserID.setText(arrayList.get(position).getCategory());
-        reportSubject.setText(arrayList.get(position).getLostOrFound());
+        UserID.setText(arrayList.get(position).getUserID());
+        reportSubject.setText(arrayList.get(position).getReportSubject());
         Description.setText(arrayList.get(position).getDescription());
 
         return convertView;
