@@ -18,7 +18,9 @@
         <activity android:name=".EditProfile" />
         <activity android:name=".Form" /> <!-- <activity android:name=".scrolling_page" /> -->
         <activity android:name=".allObjects" />
+        <activity android:name=".Report" />
         <activity android:name=".Register">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

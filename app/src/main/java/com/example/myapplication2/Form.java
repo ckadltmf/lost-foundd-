@@ -25,8 +25,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -107,7 +105,7 @@ public class Form extends AppCompatActivity  {
                     return;
                 }
                 if(TextUtils.isEmpty(place)){
-                    mObject.setError("Place Fill is required");
+                    mPlace.setError("Place Fill is required");
                     return;
                 }
                 if(happened.equals("Choose Lost or Found")){
@@ -132,8 +130,10 @@ public class Form extends AppCompatActivity  {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(Form.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
-                                    DR=documentReference.getId();
-                                    uploadImageToFirebase(imageUri);
+                                    if(ObjectImage!=null) {
+                                        DR = documentReference.getId();
+                                        uploadImageToFirebase(imageUri);
+                                    }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override

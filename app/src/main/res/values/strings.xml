@@ -12,6 +12,14 @@
         <item>Lost</item>
         <item>Found</item>
     </string-array>
+    <string-array name="reportsubject">
+        <item>Choose Report Subject</item>
+        <item>Scam</item>
+        <item>Fake advertise</item>
+        <item>inappropriate</item>
+        <item>harassment</item>
+        <item>other</item>
+    </string-array>
     <string-array name="Category">
         <item>Choose Category</item>
         <item>Mobile</item>
