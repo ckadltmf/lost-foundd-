@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -33,6 +36,8 @@ import java.util.Map;
 
 public class Report extends AppCompatActivity {
     Button mSubmit;
+    FirebaseDatabase FBDB;
+    DatabaseReference DBRF;
     Spinner mSubject_spinner;
     TextView imageuploadtext;
     EditText mDescription;
@@ -42,9 +47,12 @@ public class Report extends AppCompatActivity {
     StorageReference storageReference;
     String DR;
     Uri imageUri;
+    StorageReference fileRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FBDB=FirebaseDatabase.getInstance();
+        DBRF=FBDB.getReference("report");
         setContentView(R.layout.activity_report);
         mSubject_spinner = findViewById(R.id.subject_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.reportsubject, R.layout.support_simple_spinner_dropdown_item);
@@ -74,8 +82,25 @@ public class Report extends AppCompatActivity {
                 forms.put("UserID",userID);
                 //forms.put("Report Subject",subject_spinner);
                 forms.put("Description",description);
-                //fStore.collection("report").document(subject_spinner).getParent().add(forms);
-                fStore.collection("report").document("unchecked").collection(subject_spinner).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                String x= DBRF.child(subject_spinner).push().getKey()+"";
+
+                DBRF.child(subject_spinner).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Report.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
+                        if(ObjectImage!=null) {
+                            Log.d(x,"TAG");
+                            fileRef = storageReference.child("report/"+x+"/ReportIMG.jpg");
+                            uploadImageToFirebase(imageUri);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Report.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                /* fStore.collection("report").document("unchecked").collection(subject_spinner).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -90,7 +115,7 @@ public class Report extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(Report.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
             }
         });
         ObjectImage.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +140,7 @@ public class Report extends AppCompatActivity {
     }
     private void uploadImageToFirebase(Uri imageUri) {
         // uplaod image to firebase storage
-        final StorageReference fileRef = storageReference.child("report/"+DR+"/ReportIMG.jpg");
+        //final StorageReference fileRef = storageReference.child("report/"+DR+"/ReportIMG.jpg");
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -123,7 +148,7 @@ public class Report extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
 
-                        //Picasso.get().load(uri).into(ObjectImage);
+                        Picasso.get().load(uri).into(ObjectImage);
                     }
                 });
             }

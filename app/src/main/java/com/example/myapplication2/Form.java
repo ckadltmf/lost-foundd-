@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -42,8 +43,8 @@ public class Form extends AppCompatActivity  {
     public static final String TAG = "TAG";
     EditText mObject, mDescription,mPlace;
     Button mSubmit;
-    //FirebaseDatabase FBDB;
-    //DatabaseReference DBRF;
+    FirebaseDatabase FBDB;
+    DatabaseReference DBRF;
     Spinner Happened_spinner, Category_spinner;
     ImageView ObjectImage;
     FirebaseAuth fAuth;
@@ -57,8 +58,8 @@ public class Form extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
-        //FBDB=FirebaseDatabase.getInstance();
-        //DBRF=FBDB.getReference("forms");
+        FBDB=FirebaseDatabase.getInstance();
+        DBRF=FBDB.getReference("forms");
         storageReference = FirebaseStorage.getInstance().getReference();
         Happened_spinner = findViewById(R.id.spinner1);
         Category_spinner = findViewById(R.id.spinner2);
@@ -126,15 +127,31 @@ public class Form extends AppCompatActivity  {
                             Map<String,Object> forms = new HashMap<>();
                             forms.put("UserID",userID);
                             forms.put("Object Title",object);
-                            forms.put("Lost or Found",happened);
-                            forms.put("Category",category);
+                            //forms.put("Lost or Found",happened);
+                            //forms.put("Category",category);
                             forms.put("place",place);
                             forms.put("description",description);
                             forms.put("date",date);
-                            //DBRF.child(category).setValue(forms);
-                            fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-
+                            //DBRF.child(happened).child(category).push().setValue(forms);
+                            //fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+                            String x= DBRF.child(happened).child(category).push().getKey()+"";
+                            DBRF.child(happened).child(category).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(Form.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
+                                    if(ObjectImage!=null) {
+                                        fileRef = storageReference.child("forms/"+x+"/ObjectIMG.jpg");
+                                        uploadImageToFirebase(imageUri);
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                 @Override
+                                 public void onFailure(@NonNull Exception e) {
+                                     Toast.makeText(Form.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
+                                 }
+                             });
+
+/*                                @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(Form.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
                                     if(ObjectImage!=null) {
@@ -147,7 +164,7 @@ public class Form extends AppCompatActivity  {
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(Form.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            });*/
             }
 
         });
@@ -179,7 +196,7 @@ public class Form extends AppCompatActivity  {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //Picasso.get().load(uri).into(ObjectImage);
+                        Picasso.get().load(uri).into(ObjectImage);
                     }
                 });
             }
