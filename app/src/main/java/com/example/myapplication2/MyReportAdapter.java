@@ -1,5 +1,4 @@
 package com.example.myapplication2;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +8,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MyAdapter extends BaseAdapter {
+public class MyReportAdapter extends BaseAdapter {
+
     private Context context;
     private List<objectData> arrayList;
-    private TextView  Category, lostOrFound, Description;
-    public MyAdapter(Context context, List<objectData> arrayList) {
+    private TextView UserID, reportSubject, Description;
+    public MyReportAdapter(Context context, List<objectData> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -31,14 +31,14 @@ public class MyAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(context).inflate(R.layout.activity_row_view, parent, false);
-       // serialNum = convertView.findViewById(R.id.serailNumber);
-        Category = convertView.findViewById(R.id.reportSubject);
-        lostOrFound = convertView.findViewById(R.id.UserID);
+        convertView = LayoutInflater.from(context).inflate(R.layout.activity_report_view, parent, false);
+        // serialNum = convertView.findViewById(R.id.serailNumber);
+        UserID = convertView.findViewById(R.id.reportSubject);
+        reportSubject = convertView.findViewById(R.id.UserID);
         Description = convertView.findViewById(R.id.Description);
         //serialNum.setText(" " + arrayList.get(position).getNum());
-        Category.setText(arrayList.get(position).getCategory());
-        lostOrFound.setText(arrayList.get(position).getLostOrFound());
+        UserID.setText(arrayList.get(position).getCategory());
+        reportSubject.setText(arrayList.get(position).getLostOrFound());
         Description.setText(arrayList.get(position).getDescription());
 
         return convertView;

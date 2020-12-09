@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
-        <activity android:name=".activity_inspector"></activity>
+        <activity android:name=".all_reports"></activity>
+        <activity android:name=".activity_inspector" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Settings" />
@@ -20,7 +21,6 @@
         <activity android:name=".allObjects" />
         <activity android:name=".Report" />
         <activity android:name=".Register">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

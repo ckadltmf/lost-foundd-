@@ -44,18 +44,20 @@ public class Report extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_report);
         mSubject_spinner = findViewById(R.id.subject_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.reportsubject, R.layout.support_simple_spinner_dropdown_item);
         mSubject_spinner.setAdapter(adapter);
-        mDescription = findViewById(R.id.description);
+        mDescription = findViewById(R.id.full_description);
         ObjectImage = findViewById(R.id.ReportImageView);
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
+        mSubmit = findViewById(R.id.reportSubmit);
         storageReference = FirebaseStorage.getInstance().getReference();
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String subject_spinner=mSubject_spinner.getSelectedView().toString();
+                String subject_spinner=mSubject_spinner.getSelectedItem().toString();
                 String description=mDescription.getText().toString().trim();
                 String userID=fAuth.getCurrentUser().getUid();
                 if(TextUtils.isEmpty(description)){

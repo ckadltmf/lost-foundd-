@@ -5,7 +5,7 @@ public class objectData {
     private String Category;
     private String lostOrFound;
     private String Description;
-    public objectData( String lostOrFound, String Category ,String description) {
+    public objectData(String lostOrFound, String Category , String description) {
       //  this.serialNum = num;
         this.Category = Category;
         this.lostOrFound = lostOrFound;

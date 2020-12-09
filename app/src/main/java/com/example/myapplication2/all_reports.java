@@ -17,7 +17,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class activity_inspector extends AppCompatActivity {
+public class all_reports extends AppCompatActivity {
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -36,7 +36,7 @@ public class activity_inspector extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
-        fStore.collection("forms")
+        fStore.collection("report")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -45,7 +45,7 @@ public class activity_inspector extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "blabla data!!!", Toast.LENGTH_LONG).show();
                             int i=1;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                arrayList.add(new objectData(i+") item: "+ document.get("Category").toString(),"Category: "+ document.get("Category").toString() ,"Description: "+ document.get("Object Title").toString() ));
+                                arrayList.add(new objectData(i+") UserID: "+ document.get("UserID").toString(),"Report Subject: "+ document.get("Report Subject").toString() ,"Description: "+ document.get("Object Title").toString() ));
                                 i++;
 
                             }
@@ -54,7 +54,7 @@ public class activity_inspector extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
 
                         }
-                        adapter = new MyAdapter(activity_inspector.this, arrayList);
+                        adapter = new MyAdapter(all_reports.this, arrayList);
                         listView.setAdapter(adapter);
                     }
                 });

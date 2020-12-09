@@ -9,30 +9,74 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:onClick="addform"
-        android:text="Add form"
+        android:id="@+id/Settings"
+        android:layout_width="263dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="settings"
+        android:text="SETTINGS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/allPosts"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_width="263dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
         android:onClick="allPosts"
         android:text="ALL POSTS"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/myPosts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/inspector"
+        android:layout_width="263dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="inspector"
+        android:text="INSPECTOR VIEW"
+        app:layout_constraintBottom_toTopOf="@+id/Settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addForm"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/myPosts"
+        android:layout_width="263dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="myPosts"
+        android:text="MY POSTS"
+        app:layout_constraintBottom_toTopOf="@+id/addForm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/addForm"
+        android:layout_width="263dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="addform"
+        android:text="Add form"
+        app:layout_constraintBottom_toTopOf="@+id/report"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/report"
+        android:layout_width="263dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="report"
+        android:text="REPORT"
+        app:layout_constraintBottom_toTopOf="@+id/Settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

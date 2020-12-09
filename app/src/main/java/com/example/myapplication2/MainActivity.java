@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     String userType;
     FirebaseAuth fAuth;
     FirebaseUser fBase;
+    Button inspector;
+    Button report;
 
 
     @Override
@@ -26,6 +29,20 @@ public class MainActivity extends AppCompatActivity {
         fBase = fAuth.getCurrentUser();
         assert fBase != null;
         userType= fBase.getDisplayName();
+        inspector=  findViewById(R.id.inspector);
+        report=  findViewById(R.id.report);
+        if(userType.equals("Inspector"))
+        {
+            inspector.setVisibility(View.VISIBLE);
+            report.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            report.setVisibility(View.VISIBLE);
+            inspector.setVisibility(View.INVISIBLE);
+        }
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -36,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         MenuItem register = menu.findItem(R.id.inspectorOptions);
-        if(!userType.equals("Inspector"))
+        if(userType.equals("Inspector"))
         {
             register.setVisible(false);
         }
@@ -101,6 +118,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void addform(View view) {
         startActivity(new Intent(getApplicationContext(),Form.class));
+    }
+    public void settings(View view) {
+        startActivity(new Intent(getApplicationContext(),Settings.class));
+    }
+    public void report(View view) {
+        startActivity(new Intent(getApplicationContext(),Report.class));
+    }
+    public void myPosts(View view) {
+      //  startActivity(new Intent(getApplicationContext(),myPosts.class));
+    }
+    public void inspector(View view) {
+          startActivity(new Intent(getApplicationContext(),all_reports.class));
     }
 
 }
