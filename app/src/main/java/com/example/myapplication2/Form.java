@@ -30,7 +30,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -45,9 +44,10 @@ public class Form extends AppCompatActivity  {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     StorageReference storageReference;
-    String DR;
+    //String DR;
     Uri imageUri;
-    TextView mDate;
+    StorageReference fileRef;
+    TextView mDate, imageuploadtext;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class Form extends AppCompatActivity  {
         ObjectImage = findViewById(R.id.ObjectImageView);
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
+        imageuploadtext=findViewById(R.id.textView7);
         mDate = (TextView) findViewById(R.id.date);
         mDate.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -119,19 +120,18 @@ public class Form extends AppCompatActivity  {
                             Map<String,Object> forms = new HashMap<>();
                             forms.put("UserID",userID);
                             forms.put("Object Title",object);
-                            forms.put("Lost or Found",happened);
-                            forms.put("Category",category);
+                            //forms.put("Lost or Found",happened);
+                            //forms.put("Category",category);
                             forms.put("place",place);
                             forms.put("description",description);
                             forms.put("date",date);
-
-                            fStore.collection("forms").add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(Form.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
                                     if(ObjectImage!=null) {
-                                        DR = documentReference.getId();
+                                        fileRef = storageReference.child("forms/"+documentReference.getId()+"/ObjectIMG.jpg");
                                         uploadImageToFirebase(imageUri);
                                     }
                                 }
@@ -159,20 +159,21 @@ public class Form extends AppCompatActivity  {
         if(requestCode == 1000){
             if(resultCode == Activity.RESULT_OK){
                 imageUri = data.getData();
+                imageuploadtext.setHint("Image Uploaded!");
             }
         }
 
     }
     private void uploadImageToFirebase(Uri imageUri) {
         // uplaod image to firebase storage
-        final StorageReference fileRef = storageReference.child("forms/"+DR+"/ObjectIMG.jpg");
+        //final StorageReference fileRef = storageReference.child("forms/"+DR+"/ObjectIMG.jpg");
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(ObjectImage);
+                        //Picasso.get().load(uri).into(ObjectImage);
                     }
                 });
             }

@@ -34,6 +34,7 @@ import java.util.Map;
 public class Report extends AppCompatActivity {
     Button mSubmit;
     Spinner mSubject_spinner;
+    TextView imageuploadtext;
     EditText mDescription;
     ImageView ObjectImage;
     FirebaseAuth fAuth;
@@ -53,6 +54,7 @@ public class Report extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         mSubmit = findViewById(R.id.reportSubmit);
+        imageuploadtext=findViewById(R.id.textView8);
         storageReference = FirebaseStorage.getInstance().getReference();
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,13 +72,14 @@ public class Report extends AppCompatActivity {
                 }
                 Map<String,Object> forms = new HashMap<>();
                 forms.put("UserID",userID);
-                forms.put("Report Subject",subject_spinner);
+                //forms.put("Report Subject",subject_spinner);
                 forms.put("Description",description);
-                fStore.collection("report").add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                //fStore.collection("report").document(subject_spinner).getParent().add(forms);
+                fStore.collection("report").document("unchecked").collection(subject_spinner).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(Report.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Report.this,"Your Report added Successfully",Toast.LENGTH_SHORT).show();
                         if(ObjectImage!=null) {
                             DR=documentReference.getId();
                             uploadImageToFirebase(imageUri);
@@ -105,6 +108,7 @@ public class Report extends AppCompatActivity {
         if(requestCode == 1000){
             if(resultCode == Activity.RESULT_OK){
                 imageUri = data.getData();
+                imageuploadtext.setHint("Image Uploaded!");
             }
         }
 
@@ -118,7 +122,8 @@ public class Report extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(ObjectImage);
+
+                        //Picasso.get().load(uri).into(ObjectImage);
                     }
                 });
             }
