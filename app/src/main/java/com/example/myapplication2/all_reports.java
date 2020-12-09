@@ -45,7 +45,7 @@ public class all_reports extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "blabla data!!!", Toast.LENGTH_LONG).show();
                             int i=1;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                arrayList.add(new objectData(i+") UserID: "+ document.get("UserID").toString(),"Report Subject: "+ document.get("Report Subject").toString() ,"Description: "+ document.get("Object Title").toString() ));
+                                arrayList.add(new objectData(i+") UserID: "+ document.get("UserID").toString(),"Report Subject: "+ document.get("Report Subject").toString() ,"Description: "+ document.get("Description").toString() ));
                                 i++;
 
                             }
