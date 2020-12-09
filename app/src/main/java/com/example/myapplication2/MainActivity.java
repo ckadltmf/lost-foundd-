@@ -96,15 +96,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void allPosts(View view) {
-        //FirebaseAuth.getInstance().signOut();//logout
         startActivity(new Intent(getApplicationContext(),allObjects.class));
-        finish();
     }
 
     public void addform(View view) {
-        //FirebaseAuth.getInstance().signOut();//logout
         startActivity(new Intent(getApplicationContext(),Form.class));
-        finish();
     }
 
 }

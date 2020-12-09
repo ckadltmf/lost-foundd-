@@ -11,12 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
+        <activity android:name=".activity_inspector"></activity>
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".EditProfile" />
-        <activity android:name=".Form" />
-<!--        <activity android:name=".scrolling_page" />-->
+        <activity android:name=".Form" /> <!-- <activity android:name=".scrolling_page" /> -->
         <activity android:name=".allObjects" />
         <activity android:name=".Register">
             <intent-filter>
@@ -32,5 +32,3 @@
     </application>
 
 </manifest>
-
-
