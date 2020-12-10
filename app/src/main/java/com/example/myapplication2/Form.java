@@ -124,6 +124,7 @@ public class Form extends AppCompatActivity  {
                     ((TextView)Category_spinner.getSelectedView()).setError("");
                     return;
                 }
+                            String x= DBRF.child(happened).child(category).push().getKey()+"";
                             Map<String,Object> forms = new HashMap<>();
                             forms.put("UserID",userID);
                             forms.put("Object Title",object);
@@ -132,9 +133,9 @@ public class Form extends AppCompatActivity  {
                             forms.put("place",place);
                             forms.put("description",description);
                             forms.put("date",date);
+                            //forms.put("Generated Key",x);
                             //DBRF.child(happened).child(category).push().setValue(forms);
                             //fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
-                            String x= DBRF.child(happened).child(category).push().getKey()+"";
                             DBRF.child(happened).child(category).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -190,22 +191,23 @@ public class Form extends AppCompatActivity  {
     private void uploadImageToFirebase(Uri imageUri) {
         // uplaod image to firebase storage
         //final StorageReference fileRef = storageReference.child("forms/"+DR+"/ObjectIMG.jpg");
-        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        //Picasso.get().load(uri).into(ObjectImage);
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Failed.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        if(imageUri!=null) {
+            fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            //Picasso.get().load(uri).into(ObjectImage);
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), "Failed.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

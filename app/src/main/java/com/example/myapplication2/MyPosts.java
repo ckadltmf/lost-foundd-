@@ -1,5 +1,7 @@
 package com.example.myapplication2;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,8 +12,10 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -19,8 +23,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MyPosts extends AppCompatActivity {
 
@@ -32,11 +39,14 @@ public class MyPosts extends AppCompatActivity {
     ListView listView;
     ArrayList<String> arrayList= new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
-    String ObjectTitle,userID;
+    String ObjectTitle;
     String Description;
     String ObjectType;
     int count;
-    FirebaseAuth fAuth;
+
+    List<String> GENERATED_KEYS_PATH;
+    List<String> GENERATED_KEYS_LIST;
+    //FirebaseAuth fAuth;
     Spinner Happened_spinner;
 
     private  String actObject[]={"Mobile","Jewel","Clothing","Pet","Electronics","Car","Bike","Bag","Glasses","jewel"};
@@ -46,6 +56,8 @@ public class MyPosts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_posts);
         //fAuth=FirebaseAuth.getInstance();
+        GENERATED_KEYS_PATH = new LinkedList<>();
+        GENERATED_KEYS_LIST = new LinkedList<>();
         listView = findViewById(R.id.listviewform);
         FBDB= FirebaseDatabase.getInstance();
         DBRF=FBDB.getReference("forms");
@@ -56,7 +68,35 @@ public class MyPosts extends AppCompatActivity {
         ArrayAdapter<CharSequence> HappendAdapter= ArrayAdapter.createFromResource(this, R.array.Whathappened, R.layout.support_simple_spinner_dropdown_item);
         Happened_spinner.setAdapter(HappendAdapter);
        // loop("Lost");
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Log.d(GENERATEDKSYLIST.toString(),"TAG");
+                //Log.d(String.valueOf((int)id),"TAG");
+/*                Object o = prestListView.getItemAtPosition(position);
+                prestationEco str = (prestationEco)o; //As you are using Default String Adapter*/
+                AlertDialog.Builder alert = new AlertDialog.Builder(MyPosts.this);
+                alert.setTitle("Choose Action");
+                alert.setMessage("Please choose your wanted Action:");
+                alert.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+                alert.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FBDB.getReference(GENERATED_KEYS_PATH.get(position)+"/"+GENERATED_KEYS_LIST.get(position)).removeValue();
+                        FirebaseStorage.getInstance().getReference("forms/"+GENERATED_KEYS_LIST.get(position)+"/ObjectIMG.jpg").delete();
+                        count=1;
+                        arrayList2.clear();
+                        loop("Lost");
+                    }
+                });
+                alert.show();
+            }
+        });
         Happened_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -121,17 +161,21 @@ public class MyPosts extends AppCompatActivity {
             arrayAdapter = new ArrayAdapter<String>(MyPosts.this, android.R.layout.simple_list_item_1, arrayList);
             listView.setAdapter(arrayAdapter);
             databaseReference.addChildEventListener(new ChildEventListener() {
+                @SuppressLint("RestrictedApi")
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                     ObjectTitle = String.valueOf(dataSnapshot.child("Object Title").getValue());
                     Description = String.valueOf(dataSnapshot.child("description").getValue());
                     String DB_UserID=String.valueOf(dataSnapshot.child("UserID").getValue());
+                    //String y=String.valueOf(dataSnapshot.getKey());
                     ObjectType = object;
                     FirebaseUser FB_currUser=FirebaseAuth.getInstance().getCurrentUser();
-                    //Log.d(DB_UserID,"DeBuG");
-                    //Log.d(FB_currUser.getUid(),"DeBuG");
+
                     if(FB_currUser.getUid().equals(DB_UserID)) {
+                        //GENERATEDKSYLIST.add(dataSnapshot.getKey());
+                        GENERATED_KEYS_PATH.add(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getPath().toString());
+                        GENERATED_KEYS_LIST.add(dataSnapshot.getKey());
                         //here add if statement when applied to my posts
                         arrayList2.add(new objectData(count + ") Object Title: " + ObjectTitle, " Object type: " + ObjectType, "Description: " + Description));
                         adapter = new MyAdapter(MyPosts.this, arrayList2);
@@ -139,7 +183,6 @@ public class MyPosts extends AppCompatActivity {
                         count++;
                     }
                 }
-
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
@@ -152,7 +195,8 @@ public class MyPosts extends AppCompatActivity {
 
                 @Override
                 public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                    //Log.d(dataSnapshot.getValue().toString(),"TAG");
+                    //Log.d(dataSnapshot.getKey(),"TAG");
                 }
 
                 @Override
@@ -162,4 +206,5 @@ public class MyPosts extends AppCompatActivity {
             });
         }
     }
+
 }

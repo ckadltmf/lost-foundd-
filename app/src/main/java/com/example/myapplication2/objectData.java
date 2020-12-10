@@ -5,11 +5,17 @@ public class objectData {
     private String Category;
     private String lostOrFound;
     private String Description;
+    private String userID;
+    private String formID;
     public objectData(String lostOrFound, String Category , String description) {
       //  this.serialNum = num;
         this.Category = Category;
         this.lostOrFound = lostOrFound;
         this.Description=description;
+    }
+    public objectData(String UserID,String FormID){
+        this.userID=UserID;
+        this.formID=FormID;
     }
 
     public String getCategory() {
@@ -29,5 +35,17 @@ public class objectData {
     }
     public void setDescription(String description) {
         this.Description = description;
+    }
+    public String getFormID() {
+        return formID;
+    }
+    public void setFormID(String form) {
+        this.formID = form;
+    }
+    public String getUserID() {
+        return userID;
+    }
+    public void setUserID(String userid) {
+        this.userID = userid;
     }
 }

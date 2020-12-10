@@ -1,6 +1,7 @@
 package com.example.myapplication2;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,10 +33,12 @@ public class MyAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.activity_row_view, parent, false);
+        Log.d(parent.toString(),"TAG");
        // serialNum = convertView.findViewById(R.id.serailNumber);
         Category = convertView.findViewById(R.id.reportSubject);
         lostOrFound = convertView.findViewById(R.id.UserID);
         Description = convertView.findViewById(R.id.Description);
+
         //serialNum.setText(" " + arrayList.get(position).getNum());
         Category.setText(arrayList.get(position).getCategory());
         lostOrFound.setText(arrayList.get(position).getLostOrFound());
