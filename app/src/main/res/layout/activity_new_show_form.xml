@@ -33,7 +33,7 @@
 
 
         <ListView
-            android:id="@+id/listViewForm"
+            android:id="@+id/listViewForm2"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

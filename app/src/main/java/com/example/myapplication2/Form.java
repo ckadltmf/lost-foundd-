@@ -196,7 +196,7 @@ public class Form extends AppCompatActivity  {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(ObjectImage);
+                        //Picasso.get().load(uri).into(ObjectImage);
                     }
                 });
             }

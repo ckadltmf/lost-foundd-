@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),Report.class));
     }
     public void myPosts(View view) {
-      //  startActivity(new Intent(getApplicationContext(),myPosts.class));
+        startActivity(new Intent(getApplicationContext(),MyPosts.class));
     }
     public void inspector(View view) {
           startActivity(new Intent(getApplicationContext(),all_reports.class));
