@@ -11,8 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
-        <activity android:name=".all_reports"></activity>
-        <activity android:name=".activity_inspector" />
+        <activity android:name=".all_reports" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Settings" />
