@@ -50,16 +50,19 @@ public class MyPosts extends AppCompatActivity {
         FBDB= FirebaseDatabase.getInstance();
         DBRF=FBDB.getReference("forms");
         count=1;
+        arrayList2.clear();
         //userID= fAuth.getCurrentUser().getUid().toString();
         Happened_spinner = findViewById(R.id.spinner7);
         ArrayAdapter<CharSequence> HappendAdapter= ArrayAdapter.createFromResource(this, R.array.Whathappened, R.layout.support_simple_spinner_dropdown_item);
         Happened_spinner.setAdapter(HappendAdapter);
-        loop("Lost");
+       // loop("Lost");
 
         Happened_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
+                count=1;
+                arrayList2.clear();
                 if(Happened_spinner.getSelectedItem().equals("Lost")){
                     loop("Lost");
                 }
