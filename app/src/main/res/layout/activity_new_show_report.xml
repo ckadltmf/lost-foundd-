@@ -12,7 +12,7 @@
 
 
         <ListView
-            android:id="@+id/listViewTxt"
+            android:id="@+id/listViewReport"
             android:layout_width="match_parent"
             android:layout_height="510dp" />
     </LinearLayout>
