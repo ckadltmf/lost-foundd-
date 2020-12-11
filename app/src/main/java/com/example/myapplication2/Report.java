@@ -92,6 +92,8 @@ public class Report extends AppCompatActivity {
                             Log.d(x,"TAG");
                             fileRef = storageReference.child("report/"+x+"/ReportIMG.jpg");
                             uploadImageToFirebase(imageUri);
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            return;
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {

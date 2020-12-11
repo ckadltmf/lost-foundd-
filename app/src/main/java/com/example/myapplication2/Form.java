@@ -143,6 +143,9 @@ public class Form extends AppCompatActivity  {
                                     if(ObjectImage!=null) {
                                         fileRef = storageReference.child("forms/"+x+"/ObjectIMG.jpg");
                                         uploadImageToFirebase(imageUri);
+                                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                        return;
+
                                     }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
