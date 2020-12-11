@@ -19,6 +19,7 @@
         <activity android:name=".Form" /> <!-- <activity android:name=".scrolling_page" /> -->
         <activity android:name=".allObjects" />
         <activity android:name=".MyPosts" />
+        <activity android:name=".ViewProfile" />
         <activity android:name=".Report" />
         <activity android:name=".Register">
             <intent-filter>
