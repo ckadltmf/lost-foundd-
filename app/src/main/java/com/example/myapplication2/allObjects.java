@@ -229,9 +229,6 @@ public class allObjects extends AppCompatActivity {
                   //  listView.setAdapter(adapter);
                     listView.setAdapter(arrayAdapter);
                     GENERATED_KEYS_USERID.add(dataSnapshot.child("UserID").getValue().toString());
-                    arrayList2.add(new objectData(count + ") Object Title: " + ObjectTitle, " Object type: " + ObjectType, "Description: " + Description));
-                    adapter = new MyAdapter(allObjects.this, arrayList2);
-                    listView.setAdapter(adapter);
                     count++;
                 }
 
