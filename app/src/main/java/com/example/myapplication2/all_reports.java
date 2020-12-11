@@ -23,8 +23,8 @@ public class all_reports extends AppCompatActivity {
    // FirebaseUser user;
 
 
-    ArrayList<ReportData> arrayList2 = new ArrayList<>();
-    MyReportAdapter adapter;
+  //  ArrayList<ReportData> arrayList2 = new ArrayList<>();
+  //  MyReportAdapter adapter;
     FirebaseDatabase FBDB;
     DatabaseReference DBRF;
     //////////
@@ -49,6 +49,8 @@ public class all_reports extends AppCompatActivity {
         FBDB= FirebaseDatabase.getInstance();
         DBRF=FBDB.getReference("report");
         count=1;
+        listView = findViewById(R.id.listViewForm2);
+        arrayAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2);
 
 
 for (String reportSubject:actReport) {
@@ -64,14 +66,16 @@ for (String reportSubject:actReport) {
             Description = String.valueOf(dataSnapshot.child("Description").getValue());
             ReportType = reportSubject;
 
-            arrayList2.add(new ReportData(count+") UserID: "+ UserID," Report type: "+ReportType ,"Description: "+ Description ));
+     //       arrayList2.add(new ReportData(count+") UserID: "+ UserID," Report type: "+ReportType ,"Description: "+ Description ));
        //     arrayAdapter.add(count+") Report type: "+ReportType);
      //       arrayAdapter.add("UID is "+UserID );
 
           //  arrayAdapter.add("DESCRIPTION:  "+Description );
          //   arrayAdapter.notifyDataSetChanged();
-            adapter = new MyReportAdapter(all_reports.this, arrayList2);
-            listView.setAdapter(adapter);
+          //  adapter = new MyReportAdapter(all_reports.this, arrayList2);
+           // listView.setAdapter(adapter);
+            arrayAdapter.add(count+"" + ")UserID: "+ UserID+"\n"+" Report type: "+ReportType+"\n"+"Description: "+ Description);
+            listView.setAdapter(arrayAdapter);
             count++;
         }
 

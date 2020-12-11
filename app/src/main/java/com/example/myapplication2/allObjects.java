@@ -38,8 +38,8 @@ public class allObjects extends AppCompatActivity {
  //   ArrayList<objectData> arrayList = new ArrayList<>();
  //   MyAdapter adapter;
 ///////
-    ArrayList<objectData> arrayList2 = new ArrayList<>();
-    MyAdapter adapter;
+  //  ArrayList<objectData> arrayList2 = new ArrayList<>();
+   // MyAdapter adapter;
     FirebaseDatabase FBDB;
     DatabaseReference DBRF;
     DatabaseReference databaseReference;
@@ -55,6 +55,8 @@ public class allObjects extends AppCompatActivity {
     List<String> GENERATED_KEYS_PATH;
     List<String> GENERATED_KEYS_LIST;
     Spinner Happened_spinner;
+    //////
+
 
     private  String actObject[]={"Mobile","Jewel","Clothing","Pet","Electronics","Car","Bike","Bag","Glasses","jewel"};
     private  String happend[]={"Lost","Found"};
@@ -67,13 +69,18 @@ public class allObjects extends AppCompatActivity {
         GENERATED_KEYS_LIST = new LinkedList<>();
 
         listView = findViewById(R.id.listViewForm2);
+        arrayAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2);
+
+        //listView.setAdapter(arrayAdapter);
         FBDB= FirebaseDatabase.getInstance();
         DBRF=FBDB.getReference("forms");
+
         count=1;
         Happened_spinner = findViewById(R.id.spinner6);
         ArrayAdapter<CharSequence> HappendAdapter= ArrayAdapter.createFromResource(this, R.array.Whathappened, R.layout.support_simple_spinner_dropdown_item);
         Happened_spinner.setAdapter(HappendAdapter);
         //loop("Lost");
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -105,7 +112,8 @@ public class allObjects extends AppCompatActivity {
                             FBDB.getReference(GENERATED_KEYS_PATH.get(position) + "/" + GENERATED_KEYS_LIST.get(position)).removeValue();
                             FirebaseStorage.getInstance().getReference("forms/" + GENERATED_KEYS_LIST.get(position) + "/ObjectIMG.jpg").delete();
                             count = 1;
-                            arrayList2.clear();
+                           // arrayList2.clear();
+                            arrayAdapter.clear();
                             loop("Lost");
                         }
                     });
@@ -122,7 +130,8 @@ public class allObjects extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 count=1;
-                arrayList2.clear();
+              //  arrayList2.clear();
+                arrayAdapter.clear();
                if(Happened_spinner.getSelectedItem().equals("Lost")){
                    loop("Lost");
                }
@@ -191,9 +200,11 @@ public class allObjects extends AppCompatActivity {
                     //here add if statement when applied to my posts
                     GENERATED_KEYS_PATH.add(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getPath().toString());
                     GENERATED_KEYS_LIST.add(dataSnapshot.getKey());
-                    arrayList2.add(new objectData(count + ") Object Title: " + ObjectTitle, " Object type: " + ObjectType, "Description: " + Description));
-                    adapter = new MyAdapter(allObjects.this, arrayList2);
-                    listView.setAdapter(adapter);
+                  //  arrayList2.add(new objectData(count + ") Object Title: " + ObjectTitle, " Object type: " + ObjectType, "Description: " + Description));
+                   // adapter = new MyAdapter(allObjects.this, arrayList2);
+                    arrayAdapter.add(count+"" + ")Object Title: " + ObjectTitle+"\n"+" Object type: " + ObjectType+"\n"+"Description: " + Description);
+                  //  listView.setAdapter(adapter);
+                    listView.setAdapter(arrayAdapter);
                     count++;
                 }
 

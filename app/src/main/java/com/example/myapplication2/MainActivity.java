@@ -4,15 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 public class MainActivity extends AppCompatActivity {
     String userType;
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser fBase;
     Button inspector;
     Button report;
+    MaterialSearchView searchView;
 
 
     @Override
@@ -32,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
         userType= fBase.getDisplayName();
         inspector=  findViewById(R.id.inspector);
         report=  findViewById(R.id.report);
+
+//        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("Search: ");
+//        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
+       searchView= (MaterialSearchView)findViewById(R.id.searchView);
+
         if(userType.equals("Inspector"))
         {
             inspector.setVisibility(View.VISIBLE);
@@ -44,10 +55,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.my_menu,menu);
+        MenuItem item=menu.findItem(R.id.search_icon);
+        searchView.setMenuItem(item);
         MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
@@ -61,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         };
+
+
+
 
         menu.findItem(R.id.search_icon).setOnActionExpandListener(onActionExpandListener);
         SearchView searchView = (SearchView) menu.findItem(R.id.search_icon).getActionView();
