@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ViewProfileImage"
+        android:layout_width="131dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.014"
+        tools:srcCompat="@drawable/ic_baseline_person_24" />
+
+    <TextView
+        android:id="@+id/viewprofilename"
+        android:layout_width="230dp"
+        android:layout_height="33dp"
+        android:text="name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ViewProfileImage"
+        app:layout_constraintVertical_bias="0.051" />
+
+    <TextView
+        android:id="@+id/viewprofileemail"
+        android:layout_width="230dp"
+        android:layout_height="33dp"
+        android:text="email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewprofilename"
+        app:layout_constraintVertical_bias="0.049" />
+
+    <TextView
+        android:id="@+id/viewprofilephone"
+        android:layout_width="230dp"
+        android:layout_height="33dp"
+        android:text="phone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewprofileemail"
+        app:layout_constraintVertical_bias="0.051" />
+
+    <Button
+        android:id="@+id/RemovalOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Removal options"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewprofilephone"
+        app:layout_constraintVertical_bias="0.875" />
+</androidx.constraintlayout.widget.ConstraintLayout>
