@@ -8,13 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -34,6 +40,7 @@ public class ViewProfile extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     StorageReference storageReference;
+    String userType,userAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,9 @@ public class ViewProfile extends AppCompatActivity {
         mViewProfileImage=findViewById(R.id.ViewProfileImage);
         mInspectorButton=findViewById(R.id.RemovalOptions);
         storageReference = FirebaseStorage.getInstance().getReference();
+        fBase = fAuth.getCurrentUser();
+        assert fBase != null;
+        userType= fBase.getUid();
 
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -57,30 +67,30 @@ public class ViewProfile extends AppCompatActivity {
                 Picasso.get().load(uri).into(mViewProfileImage);
             }
         });
-        DocumentReference documentReference = fStore.collection("users").document(UserID);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userType);
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot.exists()){
-                    mPhone.setText(documentSnapshot.getString("phone"));
-                    mName.setText(documentSnapshot.getString("fName"));
-                    mEmail.setText(documentSnapshot.getString("email"));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    mPhone.setText(dataSnapshot.child("phone").getValue().toString());
+                    mName.setText(dataSnapshot.child("fName").getValue().toString());
+                    mEmail.setText(dataSnapshot.child("email").getValue().toString());
+                    userAccess=dataSnapshot.child("type").getValue().toString();
+                    if(!userAccess.equals("Inspector")){
+                        mInspectorButton.setVisibility(View.GONE);
+                    }
 
                 }else {
                     Log.d("tag", "onEvent: Document: "+UserID+" do not exists");
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert currentUser != null;
-        String RegisteredUserID = currentUser.getUid();
-        // storageReference = FirebaseStorage.getInstance().getReference().child("users").child(RegisteredUserID);
-        fBase = fAuth.getCurrentUser();
-        assert fBase != null;
-        String userType= fBase.getDisplayName();
-        assert userType != null;
-        if(!userType.equals("Inspector")){
-            mInspectorButton.setVisibility(View.GONE);
-        }
     }
 }

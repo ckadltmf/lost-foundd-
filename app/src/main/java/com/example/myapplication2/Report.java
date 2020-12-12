@@ -87,7 +87,7 @@ public class Report extends AppCompatActivity {
                 DBRF.child(subject_spinner).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(Report.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Report.this,"Your report added Successfully",Toast.LENGTH_SHORT).show();
                         if(ObjectImage!=null) {
                             Log.d(x,"TAG");
                             fileRef = storageReference.child("report/"+x+"/ReportIMG.jpg");

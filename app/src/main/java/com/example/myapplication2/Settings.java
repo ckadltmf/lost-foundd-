@@ -24,6 +24,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -41,12 +46,14 @@ public class Settings extends AppCompatActivity {
     TextView fullName,email,phone,verifyMsg;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    FirebaseUser fBase;
     String userId;
     Button resendCode;
     Button resetPassLocal,changeProfileImage;
     FirebaseUser user;
     ImageView profileImage;
     StorageReference storageReference;
+    String userType;
 
 
 
@@ -67,6 +74,9 @@ public class Settings extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+        fBase = fAuth.getCurrentUser();
+        assert fBase != null;
+        userType= fBase.getUid();
         storageReference = FirebaseStorage.getInstance().getReference();
 
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
@@ -108,21 +118,24 @@ public class Settings extends AppCompatActivity {
             });
         }
 
-
-
-
-        DocumentReference documentReference = fStore.collection("users").document(userId);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userType);
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot.exists()){
-                    phone.setText(documentSnapshot.getString("phone"));
-                    fullName.setText(documentSnapshot.getString("fName"));
-                    email.setText(documentSnapshot.getString("email"));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                if(dataSnapshot.exists()){
+
+                    phone.setText(dataSnapshot.child("phone").getValue().toString());
+                    fullName.setText(dataSnapshot.child("fName").getValue().toString());
+                    email.setText(dataSnapshot.child("email").getValue().toString());
                 }else {
                     Log.d("tag", "onEvent: Document do not exists");
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
@@ -178,16 +191,12 @@ public class Settings extends AppCompatActivity {
                 i.putExtra("email",email.getText().toString());
                 i.putExtra("phone",phone.getText().toString());
                 startActivity(i);
-//
 
             }
         });
 
 
     }
-
-
-
 
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();//logout
