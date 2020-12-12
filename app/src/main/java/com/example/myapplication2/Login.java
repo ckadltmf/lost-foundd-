@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
     FirebaseAuth fAuth;
     ProgressBar progressBar;
    // StorageReference storageReference;
-   FirebaseUser fBase;
+    FirebaseUser fBase;
     String userType;
     FirebaseDatabase FBDB;
     DatabaseReference DBRF;
@@ -102,20 +102,13 @@ public class Login extends AppCompatActivity {
                                 }
                             };*/
 
-                                fBase = fAuth.getCurrentUser();
+                            fBase = fAuth.getCurrentUser();
                             assert fBase != null;
-                            userType= fBase.getDisplayName();
+                            userType= fBase.getUid();
                             assert userType != null;
-
-                            if(userType.equals("Inspector")){
-                                Toast.makeText(Login.this,"Logged in successfully as inspector.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this,"Logged in successfully", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
-                            }
-                            else{
-                                Toast.makeText(Login.this,"Logged in successfully as user.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            }
                             
 
 

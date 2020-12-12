@@ -1,5 +1,6 @@
 package com.example.myapplication2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
@@ -15,6 +16,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser fBase;
     Button inspector;
     Button report;
+    /////
+    FirebaseDatabase FBDB;
+    DatabaseReference DBRF;
+    String userAccess ;
+
 
 
 
@@ -33,30 +44,39 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fBase = fAuth.getCurrentUser();
         assert fBase != null;
-        userType= fBase.getDisplayName();
+        userType= fBase.getUid();
         inspector=  findViewById(R.id.inspector);
         report=  findViewById(R.id.report);
 
-//        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("Search: ");
-//        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
 
-        if(userType.equals("Inspector"))
-        {
-            inspector.setVisibility(View.VISIBLE);
-            report.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
-            report.setVisibility(View.VISIBLE);
-            inspector.setVisibility(View.INVISIBLE);
-        }
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userType);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userAccess=dataSnapshot.child("type").getValue().toString();
+                //Toast.makeText(MainActivity.this,userAccess,Toast.LENGTH_SHORT).show();
+                if(userAccess.equals("Inspector"))
+                {
+                    inspector.setVisibility(View.VISIBLE);
+                    report.setVisibility(View.INVISIBLE);
+                    Toast.makeText(MainActivity.this,userAccess,Toast.LENGTH_SHORT).show();
 
+                }
+                else
+                {
+                    report.setVisibility(View.VISIBLE);
+                    inspector.setVisibility(View.INVISIBLE);
+                    Toast.makeText(MainActivity.this,userAccess,Toast.LENGTH_SHORT).show();
 
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
 
     }
     @Override

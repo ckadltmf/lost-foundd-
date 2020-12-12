@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -41,6 +44,9 @@ public class Register extends AppCompatActivity {
     String userID;
     Spinner _spinner;
     FirebaseUser updateUser;
+    ////////
+    FirebaseDatabase FBDB;
+    DatabaseReference DBRF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +66,9 @@ public class Register extends AppCompatActivity {
         _spinner = /*(Spinner)*/findViewById(R.id.spinner3);
         ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(this, R.array.userType, R.layout.support_simple_spinner_dropdown_item);
         _spinner.setAdapter(adapter);
-
-
-
-
+        ////////
+        FBDB=FirebaseDatabase.getInstance();
+        DBRF=FBDB.getReference("users");
 
 
 
@@ -71,6 +76,7 @@ public class Register extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
         }
+
 
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -124,40 +130,24 @@ public class Register extends AppCompatActivity {
 
                             userID = fAuth.getCurrentUser().getUid();
                             updateUser= fAuth.getCurrentUser();
-
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String,Object> user = new HashMap<>();
                             user.put("fName",fullName);
                             user.put("email",email);
                             user.put("phone",phone);
-                            //ser.put("type",userType);
-                            if(userType.equals("Inspector")){
-                                UserProfileChangeRequest adminprofileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName("Inspector").build();
+                            user.put("type",userType);
 
-                                updateUser.updateProfile(adminprofileUpdates);
-                            }
-                            else{
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName("User").build();
-
-                                updateUser.updateProfile(profileUpdates);
-                            }
-
-
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            DBRF.child(userID).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    //Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+                                    Toast.makeText(Register.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    //Log.d(TAG, "onFailure: " + e.toString());
+                                    Toast.makeText(Register.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
                         }
                         else{
@@ -169,6 +159,121 @@ public class Register extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        mRegisterBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String email=mEmail.getText().toString().trim();
+//                String password=mPassword.getText().toString().trim();
+//                String fullName = mFullName.getText().toString();
+//                String userType = _spinner.getSelectedItem().toString();
+//
+//                String PasswordConfirm=mPasswordConfirm.getText().toString().trim();
+//
+//                final String phone    = mPhone.getText().toString();
+//
+//                if(TextUtils.isEmpty(email)){
+//                    mEmail.setError("Email is required");
+//                    return;
+//                }
+//                if(TextUtils.isEmpty(password)){
+//                    mPassword.setError("Password is required");
+//                    return;
+//                }
+//                if(password.length()<6){
+//                    mPassword.setError("Password must be at least 6 characters");
+//                    return;
+//                }
+//                if(!PasswordConfirm.equals(password)){
+//                    mPasswordConfirm.setError("The passwords should be the same");
+//                    return;
+//                }
+//                if(userType.equals("Choose User Type")){
+//                    Toast.makeText(Register.this,"Please Choose User Type", Toast.LENGTH_LONG).show();
+//
+//                    return;
+//
+//                }
+//                if(userType.equals("Inspector") && !password.equals("aa11Inspectoraa11")){
+//                    Toast.makeText(Register.this,"You do not have the permission to be an inspector", Toast.LENGTH_LONG).show();
+//                    return;
+//
+//                }
+//                progressBar.setVisibility(View.VISIBLE);
+//
+//                //Register the user to firebase
+//                fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()){
+//
+//                            Toast.makeText(Register.this,"user Created.", Toast.LENGTH_SHORT).show();
+//
+//                            userID = fAuth.getCurrentUser().getUid();
+//                            updateUser= fAuth.getCurrentUser();
+//
+//                            DocumentReference documentReference = fStore.collection("users").document(userID);
+//                            Map<String,Object> user = new HashMap<>();
+//                            user.put("fName",fullName);
+//                            user.put("email",email);
+//                            user.put("phone",phone);
+//                            //ser.put("type",userType);
+//                            if(userType.equals("Inspector")){
+//                                UserProfileChangeRequest adminprofileUpdates = new UserProfileChangeRequest.Builder()
+//                                        .setDisplayName("Inspector").build();
+//
+//                                updateUser.updateProfile(adminprofileUpdates);
+//                            }
+//                            else{
+//                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                                        .setDisplayName("User").build();
+//
+//                                updateUser.updateProfile(profileUpdates);
+//                            }
+//
+//
+//                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    //Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    //Log.d(TAG, "onFailure: " + e.toString());
+//                                }
+//                            });
+//
+//                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//
+//                        }
+//                        else{
+//                            Toast.makeText(Register.this,"Error ! "+ task.getException().getMessage() , Toast.LENGTH_SHORT).show();
+//                            progressBar.setVisibility(View.INVISIBLE);
+//                        }
+//                    }
+//                });
+//
+//            }
+//        });
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
