@@ -32,8 +32,8 @@ import java.util.List;
 
 public class MyPosts extends AppCompatActivity {
 
- //   ArrayList<objectData> arrayList2 = new ArrayList<>();
-  //  MyAdapter adapter;
+    //   ArrayList<objectData> arrayList2 = new ArrayList<>();
+    //  MyAdapter adapter;
     FirebaseDatabase FBDB;
     DatabaseReference DBRF;
     DatabaseReference databaseReference;
@@ -63,12 +63,12 @@ public class MyPosts extends AppCompatActivity {
         FBDB= FirebaseDatabase.getInstance();
         DBRF=FBDB.getReference("forms");
         count=1;
-       // arrayList2.clear();
+        // arrayList2.clear();
         //userID= fAuth.getCurrentUser().getUid().toString();
         Happened_spinner = findViewById(R.id.spinner7);
         ArrayAdapter<CharSequence> HappendAdapter= ArrayAdapter.createFromResource(this, R.array.Whathappened, R.layout.support_simple_spinner_dropdown_item);
         Happened_spinner.setAdapter(HappendAdapter);
-       // loop("Lost");
+        // loop("Lost");
         arrayAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2);
 
 
@@ -87,6 +87,7 @@ public class MyPosts extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent=new Intent(MyPosts.this,Form.class);
                         intent.putExtra("PATH",GENERATED_KEYS_PATH.get(position)+"/"+GENERATED_KEYS_LIST.get(position));
+                        intent.putExtra("KEY",GENERATED_KEYS_LIST.get(position));
                         startActivity(intent);
                     }
                 });
@@ -96,9 +97,11 @@ public class MyPosts extends AppCompatActivity {
                         FBDB.getReference(GENERATED_KEYS_PATH.get(position)+"/"+GENERATED_KEYS_LIST.get(position)).removeValue();
                         FirebaseStorage.getInstance().getReference("forms/"+GENERATED_KEYS_LIST.get(position)+"/ObjectIMG.jpg").delete();
                         count=1;
-                       // arrayList2.clear();
+                        // arrayList2.clear();
                         arrayAdapter.clear();
                         loop("Lost");
+                        GENERATED_KEYS_PATH=new LinkedList<>();
+                        GENERATED_KEYS_LIST=new LinkedList<>();
                     }
                 });
                 alert.show();
@@ -113,12 +116,18 @@ public class MyPosts extends AppCompatActivity {
                 arrayAdapter.clear();
                 if(Happened_spinner.getSelectedItem().equals("Lost")){
                     loop("Lost");
+                    GENERATED_KEYS_PATH=new LinkedList<>();
+                    GENERATED_KEYS_LIST=new LinkedList<>();
                 }
                 else if(Happened_spinner.getSelectedItem().equals("Found")){
                     loop("Found");
+                    GENERATED_KEYS_PATH=new LinkedList<>();
+                    GENERATED_KEYS_LIST=new LinkedList<>();
                 }
                 else{
                     loop("Lost");
+                    GENERATED_KEYS_PATH=new LinkedList<>();
+                    GENERATED_KEYS_LIST=new LinkedList<>();
                 }
             }
 
@@ -182,12 +191,14 @@ public class MyPosts extends AppCompatActivity {
 
                     if(FB_currUser.getUid().equals(DB_UserID)) {
                         //GENERATEDKSYLIST.add(dataSnapshot.getKey());
+
                         GENERATED_KEYS_PATH.add(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getPath().toString());
                         GENERATED_KEYS_LIST.add(dataSnapshot.getKey());
+                        Log.d(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getPath().toString(), " HERE");
                         //here add if statement when applied to my posts
-                      //  arrayList2.add(new objectData(count + ") Object Title: " + ObjectTitle, " Object type: " + ObjectType, "Description: " + Description));
-                      //  adapter = new MyAdapter(MyPosts.this, arrayList2);
-                      //  listView.setAdapter(adapter);
+                        //  arrayList2.add(new objectData(count + ") Object Title: " + ObjectTitle, " Object type: " + ObjectType, "Description: " + Description));
+                        //  adapter = new MyAdapter(MyPosts.this, arrayList2);
+                        //  listView.setAdapter(adapter);
                         arrayAdapter.add(count+"" + ")Object Title: " + ObjectTitle+"\n"+" Object type: " + ObjectType+"\n"+"Description: " + Description);
                         listView.setAdapter(arrayAdapter);
                         count++;
@@ -215,6 +226,10 @@ public class MyPosts extends AppCompatActivity {
                 }
             });
         }
+        GENERATED_KEYS_PATH=new LinkedList<>();
+        GENERATED_KEYS_LIST=new LinkedList<>();
     }
 
 }
+
+

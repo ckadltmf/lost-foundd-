@@ -57,7 +57,7 @@ public class Form extends AppCompatActivity  {
     FirebaseFirestore fStore;
     StorageReference storageReference;
     Uri imageUri;
-    String x;
+    String x,y;
     StorageReference fileRef;
     TextView mDate, imageuploadtext;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -67,6 +67,7 @@ public class Form extends AppCompatActivity  {
         setContentView(R.layout.activity_form);
         Intent intent=getIntent();
         x=intent.getStringExtra("PATH");
+        y=intent.getStringExtra("KEY");
         FBDB=FirebaseDatabase.getInstance();
         DBRF=FBDB.getReference("forms");
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -108,7 +109,7 @@ public class Form extends AppCompatActivity  {
             }
         };
         if(x!=null){
-            Log.d(x,"TAG");
+            //Log.d("x is:", x);
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(x);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -117,6 +118,13 @@ public class Form extends AppCompatActivity  {
                     mDate.setText(String.valueOf(dataSnapshot.child("date").getValue()));
                     mDescription.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                     mPlace.setText(String.valueOf(dataSnapshot.child("place").getValue()));
+                    int lostfound=adapter.getPosition(String.valueOf(databaseReference.getParent().getParent().getKey()));
+                    int categ=adapter2.getPosition(String.valueOf(databaseReference.getParent().getKey()));
+/*                    Log.d(String.valueOf(databaseReference.getParent().getParent()), String.valueOf(databaseReference.getParent()));
+                    Log.d("Happened_spinner: " + lostfound,"category_spinner: " + categ);*/
+                    Happened_spinner.setSelection(lostfound);
+                    Category_spinner.setSelection(categ);
+
                 }
 
                 @Override
@@ -154,6 +162,9 @@ public class Form extends AppCompatActivity  {
                 if(x==null) {
                     x = DBRF.child(happened).child(category).push().getKey() + "";
                 }
+                else{
+                    x=y;
+                }
                 Map<String, Object> forms = new HashMap<>();
                 forms.put("UserID", userID);
                 forms.put("Object Title", object);
@@ -165,7 +176,6 @@ public class Form extends AppCompatActivity  {
                 //forms.put("Generated Key",x);
                 //DBRF.child(happened).child(category).push().setValue(forms);
                 //fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
-                if(x==null) {
                     DBRF.child(happened).child(category).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -184,9 +194,7 @@ public class Form extends AppCompatActivity  {
                             Toast.makeText(Form.this, "Failure in adding content, please try again!", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-                else{
-                    DBRF.child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
+/*                    DBRF.child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(Form.this, "Your object updated Successfully", Toast.LENGTH_SHORT).show();
@@ -198,8 +206,7 @@ public class Form extends AppCompatActivity  {
 
                             }
                         }
-                    });
-                }
+                    });*/
 
 /*                                @Override
                                 public void onSuccess(DocumentReference documentReference) {
