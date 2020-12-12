@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
 
 public class MainActivity extends AppCompatActivity {
     String userType;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser fBase;
     Button inspector;
     Button report;
-    MaterialSearchView searchView;
+
 
 
     @Override
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle("Search: ");
 //        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
-        searchView= (MaterialSearchView)findViewById(R.id.searchView);
+
 
         if(userType.equals("Inspector"))
         {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.my_menu,menu);
         MenuItem item=menu.findItem(R.id.search_icon);
-        searchView.setMenuItem(item);
+
         MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {

@@ -1,5 +1,6 @@
 package com.example.myapplication2;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,8 +27,13 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,6 +57,7 @@ public class Form extends AppCompatActivity  {
     FirebaseFirestore fStore;
     StorageReference storageReference;
     Uri imageUri;
+    String x;
     StorageReference fileRef;
     TextView mDate, imageuploadtext;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -58,6 +65,8 @@ public class Form extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+        Intent intent=getIntent();
+        x=intent.getStringExtra("PATH");
         FBDB=FirebaseDatabase.getInstance();
         DBRF=FBDB.getReference("forms");
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -98,62 +107,99 @@ public class Form extends AppCompatActivity  {
                 mDate.setText(date);
             }
         };
+        if(x!=null){
+            Log.d(x,"TAG");
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(x);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mObject.setText(String.valueOf(dataSnapshot.child("Object Title").getValue()));
+                    mDate.setText(String.valueOf(dataSnapshot.child("date").getValue()));
+                    mDescription.setText(String.valueOf(dataSnapshot.child("description").getValue()));
+                    mPlace.setText(String.valueOf(dataSnapshot.child("place").getValue()));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String object= mObject.getText().toString().trim();
-                String happened= Happened_spinner.getSelectedItem().toString();
-                String category= Category_spinner.getSelectedItem().toString();
-                String userID=fAuth.getCurrentUser().getUid();
-                String place=mPlace.getText().toString().trim();
-                String description=mDescription.getText().toString().trim();
-                String date=mDate.getText().toString().trim();
-                if(TextUtils.isEmpty(object)){
+                String object = mObject.getText().toString().trim();
+                String happened = Happened_spinner.getSelectedItem().toString();
+                String category = Category_spinner.getSelectedItem().toString();
+                String userID = fAuth.getCurrentUser().getUid();
+                String place = mPlace.getText().toString().trim();
+                String description = mDescription.getText().toString().trim();
+                String date = mDate.getText().toString().trim();
+                if (TextUtils.isEmpty(object)) {
                     mObject.setError("Object Title is required");
                     return;
                 }
-                if(TextUtils.isEmpty(place)){
+                if (TextUtils.isEmpty(place)) {
                     mPlace.setError("Place Fill is required");
                     return;
                 }
-                if(happened.equals("Choose Lost or Found")){
-                    ((TextView)Happened_spinner.getSelectedView()).setError("");
+                if (happened.equals("Choose Lost or Found")) {
+                    ((TextView) Happened_spinner.getSelectedView()).setError("");
                     return;
                 }
-                if(category.equals("Choose Category")){
-                    ((TextView)Category_spinner.getSelectedView()).setError("");
+                if (category.equals("Choose Category")) {
+                    ((TextView) Category_spinner.getSelectedView()).setError("");
                     return;
                 }
-                            String x= DBRF.child(happened).child(category).push().getKey()+"";
-                            Map<String,Object> forms = new HashMap<>();
-                            forms.put("UserID",userID);
-                            forms.put("Object Title",object);
-                            //forms.put("Lost or Found",happened);
-                            //forms.put("Category",category);
-                            forms.put("place",place);
-                            forms.put("description",description);
-                            forms.put("date",date);
-                            //forms.put("Generated Key",x);
-                            //DBRF.child(happened).child(category).push().setValue(forms);
-                            //fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
-                            DBRF.child(happened).child(category).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(Form.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
-                                    if(ObjectImage!=null) {
-                                        fileRef = storageReference.child("forms/"+x+"/ObjectIMG.jpg");
-                                        uploadImageToFirebase(imageUri);
-                                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                        return;
+                if(x==null) {
+                    x = DBRF.child(happened).child(category).push().getKey() + "";
+                }
+                Map<String, Object> forms = new HashMap<>();
+                forms.put("UserID", userID);
+                forms.put("Object Title", object);
+                //forms.put("Lost or Found",happened);
+                //forms.put("Category",category);
+                forms.put("place", place);
+                forms.put("description", description);
+                forms.put("date", date);
+                //forms.put("Generated Key",x);
+                //DBRF.child(happened).child(category).push().setValue(forms);
+                //fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+                if(x==null) {
+                    DBRF.child(happened).child(category).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(Form.this, "Your object added Successfully", Toast.LENGTH_SHORT).show();
+                            if (ObjectImage != null) {
+                                fileRef = storageReference.child("forms/" + x + "/ObjectIMG.jpg");
+                                uploadImageToFirebase(imageUri);
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                return;
 
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                 @Override
-                                 public void onFailure(@NonNull Exception e) {
-                                     Toast.makeText(Form.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
-                                 }
-                             });
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Form.this, "Failure in adding content, please try again!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else{
+                    DBRF.child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(Form.this, "Your object updated Successfully", Toast.LENGTH_SHORT).show();
+                            if (ObjectImage != null) {
+                                fileRef = storageReference.child("forms/" + x + "/ObjectIMG.jpg");
+                                uploadImageToFirebase(imageUri);
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                return;
+
+                            }
+                        }
+                    });
+                }
 
 /*                                @Override
                                 public void onSuccess(DocumentReference documentReference) {
@@ -176,7 +222,7 @@ public class Form extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent,1000);
+                startActivityForResult(openGalleryIntent, 1000);
             }
         });
     }

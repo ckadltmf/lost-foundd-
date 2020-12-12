@@ -2,6 +2,7 @@ package com.example.myapplication2;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -84,7 +85,9 @@ public class MyPosts extends AppCompatActivity {
                 alert.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Intent intent=new Intent(MyPosts.this,Form.class);
+                        intent.putExtra("PATH",GENERATED_KEYS_PATH.get(position)+"/"+GENERATED_KEYS_LIST.get(position));
+                        startActivity(intent);
                     }
                 });
                 alert.setNegativeButton("Delete", new DialogInterface.OnClickListener() {

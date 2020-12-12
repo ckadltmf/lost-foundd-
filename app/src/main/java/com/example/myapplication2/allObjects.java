@@ -129,7 +129,7 @@ public class allObjects extends AppCompatActivity {
                 else{
                     //Log.d(,"TAG");
                     Intent intent=new Intent(allObjects.this,ViewProfile.class);
-                    intent.putExtra("USERID",GENERATED_KEYS_USERID.get(position));
+                    intent.putExtra("PATH",GENERATED_KEYS_USERID.get(position));
                     startActivity(intent);
                     //TODO: finish View profile intent by Clicking on Form
                 }
