@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
@@ -33,12 +39,15 @@ public class Login extends AppCompatActivity {
    // StorageReference storageReference;
    FirebaseUser fBase;
     String userType;
+    FirebaseDatabase FBDB;
+    DatabaseReference DBRF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        FBDB=FirebaseDatabase.getInstance();
+        DBRF=FBDB.getReference("users");
         mEmail = findViewById(R.id.Email);
         mPassword = findViewById(R.id.Password);
         mRegisterBtn = findViewById(R.id.LoginBtn);
@@ -78,10 +87,26 @@ public class Login extends AppCompatActivity {
                             assert currentUser != null;
                             String RegisteredUserID = currentUser.getUid();
                            // storageReference = FirebaseStorage.getInstance().getReference().child("users").child(RegisteredUserID);
-                            fBase = fAuth.getCurrentUser();
+                            /*ValueEventListener postListener = new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    // Get Post object and use the values to update the UI
+                                    userType = (String) dataSnapshot.child(fAuth.getCurrentUser().getUid()).getValue(Boolean.parseBoolean(String.valueOf("userType")));
+                                    Log.d(userType," TAGGGGG");
+                                    // ...
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            };*/
+
+                                fBase = fAuth.getCurrentUser();
                             assert fBase != null;
                             userType= fBase.getDisplayName();
                             assert userType != null;
+
                             if(userType.equals("Inspector")){
                                 Toast.makeText(Login.this,"Logged in successfully as inspector.", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
@@ -101,7 +126,7 @@ public class Login extends AppCompatActivity {
                         }
                         else{
                             Toast.makeText(Login.this,"Error ! "+ task.getException().getMessage() , Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.INVISIBLE);
+                            //progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 });

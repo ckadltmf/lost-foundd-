@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle("Search: ");
 //        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
-       searchView= (MaterialSearchView)findViewById(R.id.searchView);
+        searchView= (MaterialSearchView)findViewById(R.id.searchView);
 
         if(userType.equals("Inspector"))
         {
@@ -146,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
  */
     }
 
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),MyPosts.class));
     }
     public void inspector(View view) {
-          startActivity(new Intent(getApplicationContext(),all_reports.class));
+        startActivity(new Intent(getApplicationContext(),all_reports.class));
     }
 
 }

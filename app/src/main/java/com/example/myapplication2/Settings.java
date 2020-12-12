@@ -75,6 +75,7 @@ public class Settings extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(profileImage);
             }
+
         });
 
         resendCode = findViewById(R.id.resendCode);
