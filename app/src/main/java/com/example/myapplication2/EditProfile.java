@@ -19,6 +19,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -39,6 +44,8 @@ public class EditProfile extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseUser user;
     StorageReference storageReference;
+    FirebaseUser fBase;
+    String userType,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,10 @@ public class EditProfile extends AppCompatActivity {
         profilePhone = findViewById(R.id.profilePhoneNo);
         profileImageView = findViewById(R.id.profileImageView);
         saveBtn = findViewById(R.id.saveProfileInfo);
+
+        fBase = fAuth.getCurrentUser();
+        assert fBase != null;
+        userType= fBase.getUid();
 
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -84,34 +95,13 @@ public class EditProfile extends AppCompatActivity {
                     Toast.makeText(EditProfile.this, "One or Many fields are empty.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userType);
+                databaseReference.child("fName").setValue(profileFullName.getText().toString());
+                databaseReference.child("phone").setValue(profilePhone.getText().toString());
 
-                final String email = profileEmail.getText().toString();
-                user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        DocumentReference docRef = fStore.collection("users").document(user.getUid());
-                        Map<String,Object> edited = new HashMap<>();
-                        edited.put("email",email);
-                        edited.put("fName",profileFullName.getText().toString());
-                        edited.put("phone",profilePhone.getText().toString());
-                        docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                finish();
-                            }
-                        });
-                        Toast.makeText(EditProfile.this, "Profile updated.", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditProfile.this,   e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
+                Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),Settings.class));
+                finish();
             }
         });
 

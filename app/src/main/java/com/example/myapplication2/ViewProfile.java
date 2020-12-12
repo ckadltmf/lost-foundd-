@@ -68,7 +68,6 @@ public class ViewProfile extends AppCompatActivity {
             }
         });
 
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userType);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
