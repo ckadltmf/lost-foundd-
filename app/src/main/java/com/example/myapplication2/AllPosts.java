@@ -10,13 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,7 +31,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class allObjects extends AppCompatActivity {
+public class AllPosts extends AppCompatActivity {
 //    FirebaseAuth fAuth;
 //    FirebaseFirestore fStore;
 //    FirebaseUser user;
@@ -87,7 +85,9 @@ public class allObjects extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(allObjects.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(AllPosts.this);
+                alert.setTitle("Choose Action");
+                alert.setMessage("Please choose your wanted Action:");
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 assert currentUser != null;
                 String RegisteredUserID = currentUser.getUid();
@@ -102,12 +102,10 @@ public class allObjects extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         userAccess=dataSnapshot.child("type").getValue().toString();
                         if(userAccess.equals("Inspector")){
-                            alert.setTitle("Choose Action");
-                            alert.setMessage("Please choose your wanted Action:");
                             alert.setPositiveButton("View Profile", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent=new Intent(allObjects.this,ViewProfile.class);
+                                    Intent intent=new Intent(AllPosts.this,ViewProfile.class);
                                     intent.putExtra("USERID",GENERATED_KEYS_USERID.get(position));
                                     startActivity(intent);
                                  }
@@ -125,13 +123,36 @@ public class allObjects extends AppCompatActivity {
                                     loop("Lost");
                                 }
                             });
+                            alert.setNeutralButton("View Post",new DialogInterface.OnClickListener(){
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent=new Intent(AllPosts.this,ViewPost.class);
+                                    intent.putExtra("POST",GENERATED_KEYS_PATH.get(position) + "/" + GENERATED_KEYS_LIST.get(position));
+                                    startActivity(intent);
+                                }
+                            });
+                            alert.show();
                         }
                         else{
-                            //Log.d(,"TAG");
-                            Intent intent=new Intent(allObjects.this,ViewProfile.class);
-                            intent.putExtra("PATH",GENERATED_KEYS_USERID.get(position));
-                            startActivity(intent);
-                            //TODO: finish View profile intent by Clicking on Form
+                            alert.setPositiveButton("View Profile", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent=new Intent(AllPosts.this,ViewProfile.class);
+                                    intent.putExtra("USERID",GENERATED_KEYS_USERID.get(position));
+                                    startActivity(intent);
+                                }
+                            });
+                            alert.setNeutralButton("View Post",new DialogInterface.OnClickListener(){
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent=new Intent(AllPosts.this,ViewPost.class);
+                                    intent.putExtra("POST",GENERATED_KEYS_PATH.get(position) + "/" + GENERATED_KEYS_LIST.get(position));
+                                    startActivity(intent);
+                                }
+                            });
+                            alert.show();
                         }
                     }
                     @Override
@@ -139,7 +160,6 @@ public class allObjects extends AppCompatActivity {
 
                     }
                 });
-                alert.show();
             }
         });
 
@@ -181,7 +201,7 @@ public class allObjects extends AppCompatActivity {
         for (String object : actObject) {
             databaseReference = FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object);
             listView = (ListView) findViewById(R.id.listViewForm2);
-            arrayAdapter = new ArrayAdapter<String>(allObjects.this, android.R.layout.simple_list_item_1, arrayList);
+            arrayAdapter = new ArrayAdapter<String>(AllPosts.this, android.R.layout.simple_list_item_1, arrayList);
             listView.setAdapter(arrayAdapter);
             databaseReference.addChildEventListener(new ChildEventListener() {
                 @SuppressLint("RestrictedApi")
@@ -221,7 +241,11 @@ public class allObjects extends AppCompatActivity {
                 }
             });
         }
+        GENERATED_KEYS_PATH = new LinkedList<>();
+        GENERATED_KEYS_LIST = new LinkedList<>();
+        GENERATED_KEYS_USERID=new LinkedList<>();
     }
+
 
 
 }

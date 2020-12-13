@@ -11,16 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
-        <activity android:name=".all_reports" />
+        <activity android:name=".AllReports" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".EditProfile" />
         <activity android:name=".Form" /> <!-- <activity android:name=".scrolling_page" /> -->
-        <activity android:name=".allObjects" />
+        <activity android:name=".AllPosts" />
         <activity android:name=".MyPosts" />
         <activity android:name=".ViewProfile" />
         <activity android:name=".Report" />
+        <activity android:name=".ViewReport" />
+        <activity android:name=".Credits" />
+        <activity android:name=".ViewPost" />
         <activity android:name=".Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

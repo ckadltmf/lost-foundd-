@@ -83,7 +83,7 @@ public class Settings extends AppCompatActivity {
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(profileImage);
+                    Picasso.get().load(uri).into(profileImage);
             }
 
         });

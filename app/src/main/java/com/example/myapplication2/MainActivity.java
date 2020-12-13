@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -108,19 +106,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
-        MenuItem register = menu.findItem(R.id.inspectorOptions);
-        if(userType.equals("Inspector"))
-        {
-            register.setVisible(false);
-        }
-        else
-        {
-            register.setVisible(true);
-        }
-        return true;
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId())
@@ -128,18 +113,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.search_icon:
                 Toast.makeText(this,"Search",Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.settings:
-                Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),Settings.class));
-                return true;
             case R.id.refresh:
                 Toast.makeText(this,"Refresh",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 return true;
-            case R.id.inspectorOptions:
-                Toast.makeText(this,"Refresh",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),allObjects.class));
+            case R.id.Credits:
+                Toast.makeText(this,"Credits",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),Credits.class));
                 return true;
+
 /*            case R.id.Lost:
                 Toast.makeText(this,"Lost",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),Form.class));
@@ -170,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void allPosts(View view) {
-        startActivity(new Intent(getApplicationContext(),allObjects.class));
+        startActivity(new Intent(getApplicationContext(), AllPosts.class));
     }
 
     public void addform(View view) {
@@ -186,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),MyPosts.class));
     }
     public void inspector(View view) {
-        startActivity(new Intent(getApplicationContext(),all_reports.class));
+        startActivity(new Intent(getApplicationContext(), AllReports.class));
     }
 
 }

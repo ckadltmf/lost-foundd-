@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application2</string>
+    <string name="app_name">Lost&amp;Found</string>
     <string name="logout">Logout</string>
     <string name="your_name">Your Name</string>
     <string-array name="userType">
