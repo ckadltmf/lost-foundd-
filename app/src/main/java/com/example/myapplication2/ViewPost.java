@@ -21,7 +21,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class ViewPost extends AppCompatActivity {
-    TextView mObjectTitle,mLostFound,mCategory,mPlace,mDate,mDescription;
+    TextView mObjectTitle,mLostFound,mCategory,mPlace,mDate,mDescription,mStatus;
     ImageView ViewPostImage;
     StorageReference storageReference;
     String PostPath;
@@ -36,6 +36,7 @@ public class ViewPost extends AppCompatActivity {
         mPlace=findViewById(R.id.viewpostplace);
         mDate=findViewById(R.id.viewpostdate);
         mDescription=findViewById(R.id.viewpostdescription);
+        mStatus=findViewById(R.id.viewpoststatus);
         ViewPostImage=findViewById(R.id.PostimageView);
         PostPath=intent.getStringExtra("POST");
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -58,6 +59,7 @@ public class ViewPost extends AppCompatActivity {
                     mPlace.setText(dataSnapshot.child("place").getValue().toString());
                     mCategory.setText(databaseReference.getParent().getKey());
                     mLostFound.setText(databaseReference.getParent().getParent().getKey());
+                    mStatus.setText(dataSnapshot.child("status").getValue().toString());
                 }
             }
 

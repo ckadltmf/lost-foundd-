@@ -156,7 +156,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addform(View view) {
-        startActivity(new Intent(getApplicationContext(),Form.class));
+        Intent intent=new Intent(MainActivity.this,Form.class);
+        intent.putExtra("CALLED","Main");
+        startActivity(intent);
     }
     public void settings(View view) {
         startActivity(new Intent(getApplicationContext(),Settings.class));

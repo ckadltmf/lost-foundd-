@@ -1,14 +1,10 @@
 package com.example.myapplication2;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,19 +23,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -51,7 +43,7 @@ public class Form extends AppCompatActivity  {
     Button mSubmit;
     FirebaseDatabase FBDB;
     DatabaseReference DBRF;
-    Spinner Happened_spinner, Category_spinner;
+    Spinner Happened_spinner, Category_spinner, Status_spinner;
     ImageView ObjectImage;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -59,7 +51,7 @@ public class Form extends AppCompatActivity  {
     Uri imageUri;
     String x,y;
     StorageReference fileRef;
-    TextView mDate, imageuploadtext;
+    TextView mDate, imageuploadtext,StatusText;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +64,12 @@ public class Form extends AppCompatActivity  {
         DBRF=FBDB.getReference("forms");
         storageReference = FirebaseStorage.getInstance().getReference();
         Happened_spinner = findViewById(R.id.spinner1);
+        Status_spinner = findViewById(R.id.spinner4);
         Category_spinner = findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(this, R.array.Whathappened, R.layout.support_simple_spinner_dropdown_item);
         Happened_spinner.setAdapter(adapter);
+        ArrayAdapter<CharSequence> adapter3= ArrayAdapter.createFromResource(this, R.array.status, R.layout.support_simple_spinner_dropdown_item);
+        Status_spinner.setAdapter(adapter3);
         ArrayAdapter<CharSequence> adapter2= ArrayAdapter.createFromResource(this, R.array.Category, R.layout.support_simple_spinner_dropdown_item);
         Category_spinner.setAdapter(adapter2);
         mObject = findViewById(R.id.ObjectName);
@@ -86,6 +81,11 @@ public class Form extends AppCompatActivity  {
         fAuth = FirebaseAuth.getInstance();
         imageuploadtext=findViewById(R.id.textView7);
         mDate = (TextView) findViewById(R.id.date);
+        StatusText=findViewById(R.id.textView25);
+        if(intent.getStringExtra("CALLED").equals("Main")){
+            Status_spinner.setVisibility(View.GONE);
+            StatusText.setVisibility(View.GONE);
+        }
         mDate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -108,7 +108,7 @@ public class Form extends AppCompatActivity  {
                 mDate.setText(date);
             }
         };
-        if(x!=null){
+        if(x!=null) {
             //Log.d("x is:", x);
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(x);
             databaseReference.addValueEventListener(new ValueEventListener() {
@@ -118,13 +118,14 @@ public class Form extends AppCompatActivity  {
                     mDate.setText(String.valueOf(dataSnapshot.child("date").getValue()));
                     mDescription.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                     mPlace.setText(String.valueOf(dataSnapshot.child("place").getValue()));
-                    int lostfound=adapter.getPosition(String.valueOf(databaseReference.getParent().getParent().getKey()));
-                    int categ=adapter2.getPosition(String.valueOf(databaseReference.getParent().getKey()));
+                    int status=adapter3.getPosition(String.valueOf(dataSnapshot.child("status").getValue()));
+                    int lostfound = adapter.getPosition(String.valueOf(databaseReference.getParent().getParent().getKey()));
+                    int categ = adapter2.getPosition(String.valueOf(databaseReference.getParent().getKey()));
 /*                    Log.d(String.valueOf(databaseReference.getParent().getParent()), String.valueOf(databaseReference.getParent()));
                     Log.d("Happened_spinner: " + lostfound,"category_spinner: " + categ);*/
                     Happened_spinner.setSelection(lostfound);
                     Category_spinner.setSelection(categ);
-
+                    Status_spinner.setSelection(status);
                 }
 
                 @Override
@@ -143,6 +144,11 @@ public class Form extends AppCompatActivity  {
                 String place = mPlace.getText().toString().trim();
                 String description = mDescription.getText().toString().trim();
                 String date = mDate.getText().toString().trim();
+                String status=Status_spinner.getSelectedItem().toString();
+                if(Status_spinner.getVisibility()!=View.GONE&&status.equals("Choose status")){
+                    ((TextView) Status_spinner.getSelectedView()).setError("");
+                    return;
+                }
                 if (TextUtils.isEmpty(object)) {
                     mObject.setError("Object Title is required");
                     return;
@@ -173,6 +179,12 @@ public class Form extends AppCompatActivity  {
                 forms.put("place", place);
                 forms.put("description", description);
                 forms.put("date", date);
+                if(Status_spinner.getVisibility()!=View.GONE){
+                    forms.put("status",status);
+                }
+                else {
+                    forms.put("status", "Active");
+                }
                 //forms.put("Generated Key",x);
                 //DBRF.child(happened).child(category).push().setValue(forms);
                 //fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>()

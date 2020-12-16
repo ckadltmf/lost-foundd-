@@ -12,6 +12,12 @@
         <item>Lost</item>
         <item>Found</item>
     </string-array>
+    <string-array name="status">
+        <item>Choose status</item>
+        <item>Active</item>
+        <item>Standby</item>
+        <item>Closed</item>
+    </string-array>
     <string-array name="reportsubject">
         <item>Choose Report Subject</item>
         <item>Scam</item>

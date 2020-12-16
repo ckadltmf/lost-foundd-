@@ -88,6 +88,7 @@ public class MyPosts extends AppCompatActivity {
                         Intent intent=new Intent(MyPosts.this,Form.class);
                         intent.putExtra("PATH",GENERATED_KEYS_PATH.get(position)+"/"+GENERATED_KEYS_LIST.get(position));
                         intent.putExtra("KEY",GENERATED_KEYS_LIST.get(position));
+                        intent.putExtra("CALLED","MyPosts");
                         startActivity(intent);
                     }
                 });
