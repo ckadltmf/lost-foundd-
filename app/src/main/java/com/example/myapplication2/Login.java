@@ -38,7 +38,6 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
    // StorageReference storageReference;
     FirebaseUser fBase;
-    String userType;
     FirebaseDatabase FBDB;
     DatabaseReference DBRF;
 
@@ -86,36 +85,10 @@ public class Login extends AppCompatActivity {
                             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                             assert currentUser != null;
                             String RegisteredUserID = currentUser.getUid();
-                           // storageReference = FirebaseStorage.getInstance().getReference().child("users").child(RegisteredUserID);
-                            /*ValueEventListener postListener = new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    // Get Post object and use the values to update the UI
-                                    userType = (String) dataSnapshot.child(fAuth.getCurrentUser().getUid()).getValue(Boolean.parseBoolean(String.valueOf("userType")));
-                                    Log.d(userType," TAGGGGG");
-                                    // ...
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            };*/
-
                             fBase = fAuth.getCurrentUser();
                             assert fBase != null;
-                            userType= fBase.getUid();
-                            assert userType != null;
-                                Toast.makeText(Login.this,"Logged in successfully", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-
-                            
-
-
-
-                           // Toast.makeText(Login.this,"Logged in successfully.", Toast.LENGTH_SHORT).show();
-
-
+                            Toast.makeText(Login.this,"Logged in successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         }
                         else{
                             Toast.makeText(Login.this,"Error ! "+ task.getException().getMessage() , Toast.LENGTH_SHORT).show();
@@ -133,7 +106,6 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),Register.class));
             }
         });
-
 
         forgotTextLink.setOnClickListener(new View.OnClickListener() {
             @Override

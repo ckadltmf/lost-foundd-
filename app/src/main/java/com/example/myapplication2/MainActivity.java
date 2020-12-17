@@ -161,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void settings(View view) {
-        startActivity(new Intent(getApplicationContext(),Settings.class));
+        //startActivity(new Intent(getApplicationContext(),Settings.class));
+        startActivity(new Intent(getApplicationContext(),ScrollView.class));
     }
     public void report(View view) {
         startActivity(new Intent(getApplicationContext(),Report.class));

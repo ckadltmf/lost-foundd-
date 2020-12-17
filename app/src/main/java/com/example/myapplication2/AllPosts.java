@@ -186,6 +186,7 @@ public class AllPosts extends AppCompatActivity {
                    GENERATED_KEYS_LIST = new LinkedList<>();
                    GENERATED_KEYS_USERID=new LinkedList<>();
                    loop("Lost");
+                   loop("Found");
                }
             }
 
@@ -214,7 +215,7 @@ public class AllPosts extends AppCompatActivity {
                     //here add if statement when applied to my posts
                     GENERATED_KEYS_PATH.add(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getPath().toString());
                     GENERATED_KEYS_LIST.add(dataSnapshot.getKey());
-                    arrayAdapter.add(count+"" + ")Object Title: " + ObjectTitle+"\n"+" Object type: " + ObjectType+"\n"+"Description: " + Description);
+                    arrayAdapter.add(count+"" + ") Item:"+Look+"\n"+"Object Title: " + ObjectTitle+"\n"+" Object type: " + ObjectType+"\n"+"Description: " + Description);
                     listView.setAdapter(arrayAdapter);
                     GENERATED_KEYS_USERID.add(dataSnapshot.child("UserID").getValue().toString());
                     count++;

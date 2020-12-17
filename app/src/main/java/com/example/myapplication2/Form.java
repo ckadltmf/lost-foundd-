@@ -49,10 +49,11 @@ public class Form extends AppCompatActivity  {
     FirebaseFirestore fStore;
     StorageReference storageReference;
     Uri imageUri;
-    String x,y;
+    String x,y,happened,category;
     StorageReference fileRef;
     TextView mDate, imageuploadtext,StatusText;
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    String imgUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,8 +139,8 @@ public class Form extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 String object = mObject.getText().toString().trim();
-                String happened = Happened_spinner.getSelectedItem().toString();
-                String category = Category_spinner.getSelectedItem().toString();
+                happened = Happened_spinner.getSelectedItem().toString();
+                category = Category_spinner.getSelectedItem().toString();
                 String userID = fAuth.getCurrentUser().getUid();
                 String place = mPlace.getText().toString().trim();
                 String description = mDescription.getText().toString().trim();
@@ -179,12 +180,19 @@ public class Form extends AppCompatActivity  {
                 forms.put("place", place);
                 forms.put("description", description);
                 forms.put("date", date);
+//                if(imageUri!=null){
+//                    forms.put("imgUrl",imageUri.toString());
+//                }
+//                else{
+//                    forms.put("imgUrl","");
+//                }
                 if(Status_spinner.getVisibility()!=View.GONE){
                     forms.put("status",status);
                 }
                 else {
                     forms.put("status", "Active");
                 }
+
                 //forms.put("Generated Key",x);
                 //DBRF.child(happened).child(category).push().setValue(forms);
                 //fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
@@ -266,7 +274,8 @@ public class Form extends AppCompatActivity  {
                     fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            //Picasso.get().load(uri).into(ObjectImage);
+                        imgUri= uri.toString();
+                        DBRF.child(happened).child(category).child(x).child("img").setValue(imgUri);
                         }
                     });
                 }
