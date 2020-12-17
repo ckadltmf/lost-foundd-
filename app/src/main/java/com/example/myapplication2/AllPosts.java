@@ -209,7 +209,7 @@ public class AllPosts extends AppCompatActivity {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                    ObjectTitle = String.valueOf(dataSnapshot.child("Object Title").getValue());
+                    ObjectTitle = String.valueOf(dataSnapshot.child("ObjectTitle").getValue());
                     Description = String.valueOf(dataSnapshot.child("description").getValue());
                     ObjectType = object;
                     //here add if statement when applied to my posts

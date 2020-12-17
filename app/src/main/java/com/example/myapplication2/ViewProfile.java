@@ -60,14 +60,14 @@ public class ViewProfile extends AppCompatActivity {
         fBase = fAuth.getCurrentUser();
         assert fBase != null;
         userType= fBase.getUid();
+            StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
+            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(mViewProfileImage);
+                }
+            });
 
-        StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(mViewProfileImage);
-            }
-        });
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/").child(UserID);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
