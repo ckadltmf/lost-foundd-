@@ -3,6 +3,7 @@ package com.example.myapplication2;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
 
         Context context;
         ArrayList<Items> profiles;
@@ -36,13 +38,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            holder.item.setText(profiles.get(position).getPlace());
+            holder.item.setText(profiles.get(position).getObjectTitle());
             holder.description.setText(profiles.get(position).getDescription());
             Picasso.get().load(profiles.get(position).getImg()).into(holder.profilePic);
-            if(profiles.get(position).getPermission()) {
-                holder.btn.setVisibility(View.VISIBLE);
-                holder.onClick(position);
-            }
+            holder.btn.setVisibility(View.VISIBLE);
+            holder.onClick(position);
+
         }
 
         @Override
@@ -68,6 +69,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
+                        Intent intent= new Intent(context, MainActivity.class);
+                    //    intent.putExtra("item","");
+                        context.startActivity(intent);
                     }
                 });
             }

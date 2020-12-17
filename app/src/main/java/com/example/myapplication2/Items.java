@@ -3,7 +3,7 @@ package com.example.myapplication2;
 
 public class Items {
 
-    private String place;
+    private String ObjectTitle;
     private String description;
     private String img;
 
@@ -14,17 +14,17 @@ public class Items {
     }
 
     public Items(String ObjectTitle, String description,String img) {
-        this.place = ObjectTitle;
+        this.ObjectTitle = ObjectTitle;
         this.description = description;
         this.img = img;
     }
 
-    public String getPlace() {
-        return place;
+    public String getObjectTitle() {
+        return ObjectTitle;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setObjectTitle(String ObjectTitle) {
+        this.ObjectTitle = ObjectTitle;
     }
 
     public String getImg() {

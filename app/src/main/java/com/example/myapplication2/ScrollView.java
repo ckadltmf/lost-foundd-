@@ -54,6 +54,20 @@ public class ScrollView extends AppCompatActivity {
             }
         });
 
+
+        recyclerView.setRecyclerListener(new RecyclerView.RecyclerListener() {
+
+            @Override
+            public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+              //  Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScrollView.this,"heloo in successfully", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+
+
+
     }
 
 
