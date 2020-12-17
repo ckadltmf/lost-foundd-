@@ -55,7 +55,7 @@ public class ViewPost extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     mDescription.setText(dataSnapshot.child("description").getValue().toString());
                     mDate.setText(dataSnapshot.child("date").getValue().toString());
-                    mObjectTitle.setText(dataSnapshot.child("Object Title").getValue().toString());
+                    mObjectTitle.setText(dataSnapshot.child("ObjectTitle").getValue().toString());
                     mPlace.setText(dataSnapshot.child("place").getValue().toString());
                     mCategory.setText(databaseReference.getParent().getKey());
                     mLostFound.setText(databaseReference.getParent().getParent().getKey());

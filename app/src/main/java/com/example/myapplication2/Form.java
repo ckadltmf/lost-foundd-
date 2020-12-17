@@ -114,7 +114,7 @@ public class Form extends AppCompatActivity  {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    mObject.setText(String.valueOf(dataSnapshot.child("Object Title").getValue()));
+                    mObject.setText(String.valueOf(dataSnapshot.child("ObjectTitle").getValue()));
                     mDate.setText(String.valueOf(dataSnapshot.child("date").getValue()));
                     mDescription.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                     mPlace.setText(String.valueOf(dataSnapshot.child("place").getValue()));
@@ -173,7 +173,7 @@ public class Form extends AppCompatActivity  {
                 }
                 Map<String, Object> forms = new HashMap<>();
                 forms.put("UserID", userID);
-                forms.put("Object Title", object);
+                forms.put("ObjectTitle", object);
                 //forms.put("Lost or Found",happened);
                 //forms.put("Category",category);
                 forms.put("place", place);

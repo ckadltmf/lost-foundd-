@@ -183,7 +183,7 @@ public class MyPosts extends AppCompatActivity {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                    ObjectTitle = String.valueOf(dataSnapshot.child("Object Title").getValue());
+                    ObjectTitle = String.valueOf(dataSnapshot.child("ObjectTitle").getValue());
                     Description = String.valueOf(dataSnapshot.child("description").getValue());
                     String DB_UserID=String.valueOf(dataSnapshot.child("UserID").getValue());
                     //String y=String.valueOf(dataSnapshot.getKey());
