@@ -152,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void allPosts(View view) {
-        startActivity(new Intent(getApplicationContext(), AllPosts.class));
+        //startActivity(new Intent(getApplicationContext(), AllPosts.class));
+        startActivity(new Intent(getApplicationContext(),ScrollView.class));
     }
 
     public void addform(View view) {
@@ -161,8 +162,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void settings(View view) {
-        //startActivity(new Intent(getApplicationContext(),Settings.class));
-        startActivity(new Intent(getApplicationContext(),ScrollView.class));
+        startActivity(new Intent(getApplicationContext(),Settings.class));
+
     }
     public void report(View view) {
         startActivity(new Intent(getApplicationContext(),Report.class));

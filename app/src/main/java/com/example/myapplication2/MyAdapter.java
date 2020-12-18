@@ -15,12 +15,12 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-
+        ArrayList<Items> DataArrayList= new ArrayList<>();
         Context context;
         ArrayList<Items> profiles;
 
@@ -44,6 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.btn.setVisibility(View.VISIBLE);
             holder.onClick(position);
 
+        DataArrayList.add(profiles.get(position));
         }
 
         @Override
@@ -69,8 +70,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(context, MainActivity.class);
-                    //    intent.putExtra("item","");
+                        Intent intent= new Intent(context, ViewPost.class);
+                        intent.putExtra("ObjectTitle", DataArrayList.get(position).getObjectTitle());
+                        intent.putExtra( "description", DataArrayList.get(position).getDescription());
+                        intent.putExtra( "img", DataArrayList.get(position).getImg());
+                        intent.putExtra( "date", DataArrayList.get(position).getDate());
+                        intent.putExtra( "status", DataArrayList.get(position).getStatus());
+                        intent.putExtra( "place", DataArrayList.get(position).getPlace());
+                        intent.putExtra( "UserID", DataArrayList.get(position).getUserID());
+                        intent.putExtra( "category", DataArrayList.get(position).getCategory());
+                        intent.putExtra( "happend", DataArrayList.get(position).getHappend());
+
                         context.startActivity(intent);
                     }
                 });

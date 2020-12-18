@@ -7,6 +7,13 @@ public class Items {
     private String description;
     private String img;
 
+    private String date;
+    private String place;
+    private String status;
+    private String UserID;
+    private String category;
+    private String happend;
+
 
     private boolean permission;
 
@@ -44,11 +51,51 @@ public class Items {
         this.description = profilePic;
     }
 
-    public boolean getPermission() {
-        return permission;
+    public String getDate() {
+        return date;
     }
 
-    public void setPermission(boolean permission) {
-        this.permission = permission;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String UserID) {
+        this.UserID = UserID;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getHappend() {
+        return happend;
+    }
+
+    public void setHappend(String happend) {
+        this.happend = happend;
     }
 }

@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -28,23 +31,28 @@ public class ScrollView extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<Items> list;
     MyAdapter adapter;
+    Spinner Happened_spinner;
     private  String actObject[]={"Mobile","Jewel","Clothing","Pet","Electronics","Car","Bike","Bag","Glasses","jewel"};
     private  String happend[]={"Lost","Found"};
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroll_view);
-
+        Happened_spinner = findViewById(R.id.spinner6);
+        ArrayAdapter<CharSequence> HappendAdapter= ArrayAdapter.createFromResource(this, R.array.Whathappened, R.layout.support_simple_spinner_dropdown_item);
+        Happened_spinner.setAdapter(HappendAdapter);
         recyclerView = (RecyclerView) findViewById(R.id.myRecycler);
         recyclerView.setLayoutManager( new LinearLayoutManager(this));
+        list = new ArrayList<Items>();
         reference = FirebaseDatabase.getInstance().getReference().child("forms").child("Lost");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list = new ArrayList<Items>();
-                loop("Lost");
+
+                //loop("Lost");
 
             }
 
@@ -66,19 +74,50 @@ public class ScrollView extends AppCompatActivity {
 
         });
 
+        Happened_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                list = new ArrayList<Items>();
+                if(Happened_spinner.getSelectedItem().equals("Lost")){
+                  //  list.clear();
+                    loop("Lost");
+                }
+                else if(Happened_spinner.getSelectedItem().equals("Found")){
+                 //   list.clear();
+                    loop("Found");
+                }
+                else{
+                  //  list.clear();
+                    loop("Lost");
+                    loop("Found");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+
+            }
+
+        });
 
 
     }
 
 
     public void loop(String Look){
+       // list.clear();
         for (String object : actObject) {
             reference = FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object);
             reference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Items p= dataSnapshot.getValue(Items.class);
+                    p.setCategory(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getKey());
+                    p.setHappend(FirebaseDatabase.getInstance().getReference("forms").child(Look).getKey());
                     list.add(p);
+
                     adapter = new MyAdapter(ScrollView.this,list);
                     recyclerView.setAdapter(adapter);
                 }
