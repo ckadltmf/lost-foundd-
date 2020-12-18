@@ -6,12 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,9 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-public class ScrollView extends AppCompatActivity {
+public class PostsScrollView extends AppCompatActivity {
 
     DatabaseReference reference;
     RecyclerView recyclerView;
@@ -58,7 +55,7 @@ public class ScrollView extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ScrollView.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostsScrollView.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -68,7 +65,7 @@ public class ScrollView extends AppCompatActivity {
             @Override
             public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
               //  Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                Toast.makeText(ScrollView.this,"heloo in successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostsScrollView.this,"heloo in successfully", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -118,7 +115,7 @@ public class ScrollView extends AppCompatActivity {
                     p.setHappend(FirebaseDatabase.getInstance().getReference("forms").child(Look).getKey());
                     list.add(p);
 
-                    adapter = new MyAdapter(ScrollView.this,list);
+                    adapter = new MyAdapter(PostsScrollView.this,list);
                     recyclerView.setAdapter(adapter);
                 }
 

@@ -15,19 +15,18 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         ArrayList<Items> DataArrayList= new ArrayList<>();
         Context context;
-        ArrayList<Items> profiles;
+        ArrayList<Items> items;
 
         public MyAdapter(Context c , ArrayList<Items> p)
         {
             context = c;
-            profiles = p;
+            items = p;
         }
 
         @NonNull
@@ -38,18 +37,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            holder.item.setText(profiles.get(position).getObjectTitle());
-            holder.description.setText(profiles.get(position).getDescription());
-            Picasso.get().load(profiles.get(position).getImg()).into(holder.profilePic);
+            holder.item.setText(items.get(position).getObjectTitle());
+            holder.description.setText(items.get(position).getDescription());
+            Picasso.get().load(items.get(position).getImg()).into(holder.profilePic);
             holder.btn.setVisibility(View.VISIBLE);
             holder.onClick(position);
 
-        DataArrayList.add(profiles.get(position));
+        DataArrayList.add(items.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return profiles.size();
+            return items.size();
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder

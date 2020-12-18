@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void allPosts(View view) {
         //startActivity(new Intent(getApplicationContext(), AllPosts.class));
-        startActivity(new Intent(getApplicationContext(),ScrollView.class));
+        startActivity(new Intent(getApplicationContext(), PostsScrollView.class));
     }
 
     public void addform(View view) {
