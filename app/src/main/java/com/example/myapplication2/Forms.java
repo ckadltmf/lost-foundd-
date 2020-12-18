@@ -1,7 +1,7 @@
 package com.example.myapplication2;
 
 
-public class Items {
+public class Forms {
 
     private String ObjectTitle;
     private String description;
@@ -17,10 +17,10 @@ public class Items {
 
     private boolean permission;
 
-    public Items() {
+    public Forms() {
     }
 
-    public Items(String ObjectTitle, String description,String img) {
+    public Forms(String ObjectTitle, String description, String img) {
         this.ObjectTitle = ObjectTitle;
         this.description = description;
         this.img = img;

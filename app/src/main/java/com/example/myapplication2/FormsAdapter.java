@@ -17,13 +17,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder> {
 
-        ArrayList<Items> DataArrayList= new ArrayList<>();
+        ArrayList<Forms> DataArrayList= new ArrayList<>();
         Context context;
-        ArrayList<Items> items;
+        ArrayList<Forms> items;
 
-        public MyAdapter(Context c , ArrayList<Items> p)
+        public FormsAdapter(Context c , ArrayList<Forms> p)
         {
             context = c;
             items = p;

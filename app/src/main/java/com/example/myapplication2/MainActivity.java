@@ -3,6 +3,7 @@ package com.example.myapplication2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void allPosts(View view) {
         //startActivity(new Intent(getApplicationContext(), AllPosts.class));
-        startActivity(new Intent(getApplicationContext(), PostsScrollView.class));
+        startActivity(new Intent(getApplicationContext(), FormsScrollView.class));
     }
 
     public void addform(View view) {
@@ -172,7 +173,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),MyPosts.class));
     }
     public void inspector(View view) {
-        startActivity(new Intent(getApplicationContext(), AllReports.class));
+       // startActivity(new Intent(getApplicationContext(), AllReports.class));
+        startActivity(new Intent(getApplicationContext(), ReportsScrollView.class));
+
     }
 
 }

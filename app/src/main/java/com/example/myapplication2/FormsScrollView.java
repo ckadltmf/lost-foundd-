@@ -22,12 +22,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class PostsScrollView extends AppCompatActivity {
+public class FormsScrollView extends AppCompatActivity {
 
     DatabaseReference reference;
     RecyclerView recyclerView;
-    ArrayList<Items> list;
-    MyAdapter adapter;
+    ArrayList<Forms> list;
+    FormsAdapter adapter;
     Spinner Happened_spinner;
     private  String actObject[]={"Mobile","Jewel","Clothing","Pet","Electronics","Car","Bike","Bag","Glasses","jewel"};
     private  String happend[]={"Lost","Found"};
@@ -43,7 +43,7 @@ public class PostsScrollView extends AppCompatActivity {
         Happened_spinner.setAdapter(HappendAdapter);
         recyclerView = (RecyclerView) findViewById(R.id.myRecycler);
         recyclerView.setLayoutManager( new LinearLayoutManager(this));
-        list = new ArrayList<Items>();
+        list = new ArrayList<Forms>();
         reference = FirebaseDatabase.getInstance().getReference().child("forms").child("Lost");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -55,7 +55,7 @@ public class PostsScrollView extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(PostsScrollView.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FormsScrollView.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -65,7 +65,7 @@ public class PostsScrollView extends AppCompatActivity {
             @Override
             public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
               //  Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                Toast.makeText(PostsScrollView.this,"heloo in successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FormsScrollView.this,"heloo in successfully", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -75,7 +75,7 @@ public class PostsScrollView extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                list = new ArrayList<Items>();
+                list = new ArrayList<Forms>();
                 if(Happened_spinner.getSelectedItem().equals("Lost")){
                   //  list.clear();
                     loop("Lost");
@@ -110,12 +110,12 @@ public class PostsScrollView extends AppCompatActivity {
             reference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Items p= dataSnapshot.getValue(Items.class);
+                    Forms p= dataSnapshot.getValue(Forms.class);
                     p.setCategory(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getKey());
                     p.setHappend(FirebaseDatabase.getInstance().getReference("forms").child(Look).getKey());
                     list.add(p);
 
-                    adapter = new MyAdapter(PostsScrollView.this,list);
+                    adapter = new FormsAdapter(FormsScrollView.this,list);
                     recyclerView.setAdapter(adapter);
                 }
 

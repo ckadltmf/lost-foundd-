@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
-        <activity android:name=".PostsScrollView"></activity>
+        <activity android:name=".FormsScrollView"></activity>
         <activity android:name=".AllReports" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
@@ -25,6 +25,8 @@
         <activity android:name=".ViewReport" />
         <activity android:name=".Credits" />
         <activity android:name=".ViewPost" />
+        <activity android:name=".ReportsScrollView" />
+
         <activity android:name=".Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
