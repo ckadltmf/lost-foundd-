@@ -16,6 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.myapplication2.ViewPages.ViewForm;
+import com.example.myapplication2.ViewPages.ViewProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -105,7 +107,7 @@ public class AllPosts extends AppCompatActivity {
                             alert.setPositiveButton("View Profile", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent=new Intent(AllPosts.this,ViewProfile.class);
+                                    Intent intent=new Intent(AllPosts.this, ViewProfile.class);
                                     intent.putExtra("USERID",GENERATED_KEYS_USERID.get(position));
                                     startActivity(intent);
                                  }
@@ -127,7 +129,7 @@ public class AllPosts extends AppCompatActivity {
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent=new Intent(AllPosts.this,ViewPost.class);
+                                    Intent intent=new Intent(AllPosts.this, ViewForm.class);
                                     intent.putExtra("POST",GENERATED_KEYS_PATH.get(position) + "/" + GENERATED_KEYS_LIST.get(position));
                                     startActivity(intent);
                                 }
@@ -147,7 +149,7 @@ public class AllPosts extends AppCompatActivity {
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent=new Intent(AllPosts.this,ViewPost.class);
+                                    Intent intent=new Intent(AllPosts.this, ViewForm.class);
                                     intent.putExtra("POST",GENERATED_KEYS_PATH.get(position) + "/" + GENERATED_KEYS_LIST.get(position));
                                     startActivity(intent);
                                 }

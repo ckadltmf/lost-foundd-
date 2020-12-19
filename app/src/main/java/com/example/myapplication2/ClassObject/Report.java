@@ -1,6 +1,6 @@
-package com.example.myapplication2;
+package com.example.myapplication2.ClassObject;
 
-public class Reports {
+public class Report {
 
 
     private String Description;
@@ -11,10 +11,10 @@ public class Reports {
 
     private boolean permission;
 
-    public Reports() {
+    public Report() {
     }
 
-    public Reports( String description,String UserID) {
+    public Report(String description, String UserID) {
         this.Description = description;
         this.UserID = UserID;
 

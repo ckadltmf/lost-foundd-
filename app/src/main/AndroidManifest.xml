@@ -11,23 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
-        <activity android:name=".FormsScrollView"></activity>
+        <activity android:name=".ScrollView.FormsScrollView"></activity>
         <activity android:name=".AllReports" />
-        <activity android:name=".Login" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Settings" />
-        <activity android:name=".EditProfile" />
-        <activity android:name=".Form" /> <!-- <activity android:name=".scrolling_page" /> -->
+        <activity android:name=".MainPages.Login" />
+        <activity android:name=".MainPages.MainActivity" />
+        <activity android:name=".MainPages.Settings" />
+        <activity android:name=".MainPages.EditProfile" />
+        <activity android:name=".AddPages.AddForm" /> <!-- <activity android:name=".scrolling_page" /> -->
         <activity android:name=".AllPosts" />
         <activity android:name=".MyPosts" />
-        <activity android:name=".ViewProfile" />
-        <activity android:name=".Report" />
-        <activity android:name=".ViewReport" />
-        <activity android:name=".Credits" />
-        <activity android:name=".ViewPost" />
-        <activity android:name=".ReportsScrollView" />
+        <activity android:name=".ViewPages.ViewProfile" />
+        <activity android:name=".AddPages.AddReport" />
+        <activity android:name=".ViewPages.ViewReport" />
+        <activity android:name=".MainPages.Credits" />
+        <activity android:name=".ViewPages.ViewForm" />
+        <activity android:name=".ScrollView.ReportsScrollView" />
 
-        <activity android:name=".Register">
+        <activity android:name=".MainPages.Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

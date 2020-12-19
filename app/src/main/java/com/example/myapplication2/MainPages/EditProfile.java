@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplication2.MainPages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,24 +15,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.myapplication2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -100,7 +94,7 @@ public class EditProfile extends AppCompatActivity {
                 databaseReference.child("phone").setValue(profilePhone.getText().toString());
 
                 Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),Settings.class));
+                startActivity(new Intent(getApplicationContext(), Settings.class));
                 finish();
             }
         });

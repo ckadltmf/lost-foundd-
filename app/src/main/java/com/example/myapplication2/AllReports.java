@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.myapplication2.ViewPages.ViewReport;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,7 +62,7 @@ public class AllReports extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(AllReports.this,ViewReport.class);
+                Intent intent=new Intent(AllReports.this, ViewReport.class);
                 intent.putExtra("REPORTPATH",GENERATED_KEYS_PATH.get(position));
                 startActivity(intent);
             }

@@ -1,25 +1,22 @@
-package com.example.myapplication2;
+package com.example.myapplication2.MainPages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,17 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import javax.annotation.Nullable;
 
 public class Settings extends AppCompatActivity {
     private static final int GALLERY_INTENT_CODE = 1023 ;
@@ -186,7 +176,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // open gallery
-                Intent i = new Intent(v.getContext(),EditProfile.class);
+                Intent i = new Intent(v.getContext(), EditProfile.class);
                 i.putExtra("fullName",fullName.getText().toString());
                 i.putExtra("email",email.getText().toString());
                 i.putExtra("phone",phone.getText().toString());
@@ -200,7 +190,7 @@ public class Settings extends AppCompatActivity {
 
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();//logout
-        startActivity(new Intent(getApplicationContext(),Login.class));
+        startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
 

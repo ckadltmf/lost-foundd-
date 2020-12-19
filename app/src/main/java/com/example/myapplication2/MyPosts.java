@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
+import com.example.myapplication2.AddPages.AddForm;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -85,7 +85,7 @@ public class MyPosts extends AppCompatActivity {
                 alert.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent=new Intent(MyPosts.this,Form.class);
+                        Intent intent=new Intent(MyPosts.this, AddForm.class);
                         intent.putExtra("PATH",GENERATED_KEYS_PATH.get(position)+"/"+GENERATED_KEYS_LIST.get(position));
                         intent.putExtra("KEY",GENERATED_KEYS_LIST.get(position));
                         intent.putExtra("CALLED","MyPosts");

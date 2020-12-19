@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplication2.ViewPages;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication2.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -1,11 +1,14 @@
-package com.example.myapplication2;
+package com.example.myapplication2.ClassObject;
 
 
-public class Forms {
+import java.io.Serializable;
+
+public class Form implements Serializable {
 
     private String ObjectTitle;
     private String description;
     private String img;
+    private String GeneratedKey;
 
     private String date;
     private String place;
@@ -14,16 +17,19 @@ public class Forms {
     private String category;
     private String happend;
 
+    public Form() {}
 
-    private boolean permission;
-
-    public Forms() {
-    }
-
-    public Forms(String ObjectTitle, String description, String img) {
-        this.ObjectTitle = ObjectTitle;
-        this.description = description;
-        this.img = img;
+    public Form(Form f) {
+        this.ObjectTitle = f.ObjectTitle;
+        this.description = f.description;
+        this.img = f.img;
+        this.GeneratedKey =f.GeneratedKey;
+        this.date=f.date;
+        this.place=f.place;
+        this.status=f.status;
+        this.UserID=f.UserID;
+        this.category=f.category;
+        this.happend=f.happend;
     }
 
     public String getObjectTitle() {
@@ -97,5 +103,13 @@ public class Forms {
 
     public void setHappend(String happend) {
         this.happend = happend;
+    }
+
+    public String getGeneratedKey() {
+        return GeneratedKey;
+    }
+
+    public void setGeneratedKey(String GeneratedKey) {
+        this.GeneratedKey = GeneratedKey;
     }
 }

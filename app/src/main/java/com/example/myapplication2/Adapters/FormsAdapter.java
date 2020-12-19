@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplication2.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication2.ClassObject.Form;
+import com.example.myapplication2.R;
+import com.example.myapplication2.ViewPages.ViewForm;
+import com.example.myapplication2.ViewPages.ViewProfile;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -19,11 +23,11 @@ import java.util.ArrayList;
 
 public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder> {
 
-        ArrayList<Forms> DataArrayList= new ArrayList<>();
+        ArrayList<Form> DataArrayList= new ArrayList<>();
         Context context;
-        ArrayList<Forms> items;
+        ArrayList<Form> items;
 
-        public FormsAdapter(Context c , ArrayList<Forms> p)
+        public FormsAdapter(Context c , ArrayList<Form> p)
         {
             context = c;
             items = p;
@@ -40,7 +44,7 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
             holder.item.setText(items.get(position).getObjectTitle());
             holder.description.setText(items.get(position).getDescription());
             Picasso.get().load(items.get(position).getImg()).into(holder.profilePic);
-            holder.btn.setVisibility(View.VISIBLE);
+            holder.ViewPostButton.setVisibility(View.VISIBLE);
             holder.onClick(position);
 
         DataArrayList.add(items.get(position));
@@ -55,31 +59,34 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
         {
             TextView item,description;
             ImageView profilePic;
-            Button btn;
+            Button ViewPostButton;
+            Button ViewProfileButton;
             public MyViewHolder(View itemView) {
                 super(itemView);
                 item = (TextView) itemView.findViewById(R.id.Item);
                 description = (TextView) itemView.findViewById(R.id.Description);
                 profilePic = (ImageView) itemView.findViewById(R.id.profilePic);
-                btn = (Button) itemView.findViewById(R.id.checkDetails);
+                ViewPostButton = (Button) itemView.findViewById(R.id.viewpostbutton);
+                ViewProfileButton = (Button) itemView.findViewById(R.id.viewprofilebutton);
             }
             public void onClick(final int position)
             {
-                btn.setOnClickListener(new View.OnClickListener() {
+                ViewPostButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(context, ViewPost.class);
-                        intent.putExtra("ObjectTitle", DataArrayList.get(position).getObjectTitle());
-                        intent.putExtra( "description", DataArrayList.get(position).getDescription());
-                        intent.putExtra( "img", DataArrayList.get(position).getImg());
-                        intent.putExtra( "date", DataArrayList.get(position).getDate());
-                        intent.putExtra( "status", DataArrayList.get(position).getStatus());
-                        intent.putExtra( "place", DataArrayList.get(position).getPlace());
-                        intent.putExtra( "UserID", DataArrayList.get(position).getUserID());
-                        intent.putExtra( "category", DataArrayList.get(position).getCategory());
-                        intent.putExtra( "happend", DataArrayList.get(position).getHappend());
+                        Intent intent= new Intent(context, ViewForm.class);
+                        Form form=new Form(DataArrayList.get(position));
+                        intent.putExtra("FormObject",form);
 
+                        context.startActivity(intent);
+                    }
+                });
+                ViewProfileButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
+                        Intent intent= new Intent(context, ViewProfile.class);
                         context.startActivity(intent);
                     }
                 });

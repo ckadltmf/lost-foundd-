@@ -1,9 +1,8 @@
-package com.example.myapplication2;
+package com.example.myapplication2.MainPages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.myapplication2.AddPages.AddForm;
+import com.example.myapplication2.AddPages.AddReport;
+import com.example.myapplication2.MyPosts;
+import com.example.myapplication2.R;
+import com.example.myapplication2.ScrollView.FormsScrollView;
+import com.example.myapplication2.ScrollView.ReportsScrollView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.Credits:
                 Toast.makeText(this,"Credits",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),Credits.class));
+                startActivity(new Intent(getApplicationContext(), Credits.class));
                 return true;
 
 /*            case R.id.Lost:
@@ -133,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;*/
             case R.id.logOut:
                 FirebaseAuth.getInstance().signOut();//logout
-                startActivity(new Intent(getApplicationContext(),Login.class));
+                startActivity(new Intent(getApplicationContext(), Login.class));
                 finish();
             default:
                 return super.onOptionsItemSelected(item);
@@ -158,19 +163,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addform(View view) {
-        Intent intent=new Intent(MainActivity.this,Form.class);
+        Intent intent=new Intent(MainActivity.this, AddForm.class);
         intent.putExtra("CALLED","Main");
         startActivity(intent);
     }
     public void settings(View view) {
-        startActivity(new Intent(getApplicationContext(),Settings.class));
+        startActivity(new Intent(getApplicationContext(), Settings.class));
 
     }
     public void report(View view) {
-        startActivity(new Intent(getApplicationContext(),Report.class));
+        startActivity(new Intent(getApplicationContext(), AddReport.class));
     }
     public void myPosts(View view) {
-        startActivity(new Intent(getApplicationContext(),MyPosts.class));
+        startActivity(new Intent(getApplicationContext(), MyPosts.class));
     }
     public void inspector(View view) {
        // startActivity(new Intent(getApplicationContext(), AllReports.class));

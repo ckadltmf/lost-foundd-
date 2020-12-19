@@ -38,11 +38,17 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/checkDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/viewpostbutton"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
             android:text="VIEW POST"
             android:visibility="visible" />
+
+        <Button
+            android:id="@+id/viewprofilebutton"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:text="VIEW PROFILE" />
 
     </LinearLayout>
 

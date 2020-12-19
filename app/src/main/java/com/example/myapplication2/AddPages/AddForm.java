@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplication2.AddPages;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication2.MainPages.MainActivity;
+import com.example.myapplication2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +38,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Form extends AppCompatActivity  {
+public class AddForm extends AppCompatActivity  {
     public static final String TAG = "TAG";
     EditText mObject, mDescription,mPlace;
     Button mSubmit;
@@ -94,7 +95,7 @@ public class Form extends AppCompatActivity  {
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(Form.this, mDateSetListener, year,month,day);
+                DatePickerDialog dialog = new DatePickerDialog(AddForm.this, mDateSetListener, year,month,day);
                 dialog.show();
             }
         });
@@ -199,7 +200,7 @@ public class Form extends AppCompatActivity  {
                     DBRF.child(happened).child(category).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(Form.this, "Your object added Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddForm.this, "Your object added Successfully", Toast.LENGTH_SHORT).show();
                             if (ObjectImage != null) {
                                 fileRef = storageReference.child("forms/" + x + "/ObjectIMG.jpg");
                                 uploadImageToFirebase(imageUri);
@@ -211,7 +212,7 @@ public class Form extends AppCompatActivity  {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Form.this, "Failure in adding content, please try again!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddForm.this, "Failure in adding content, please try again!", Toast.LENGTH_SHORT).show();
                         }
                     });
 /*                    DBRF.child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {

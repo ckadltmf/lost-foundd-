@@ -10,7 +10,7 @@
     android:animationCache="false"
     android:background="@drawable/background"
     tools:actionBarNavMode="standard"
-    tools:context=".Register">
+    tools:context=".MainPages.Register">
 
     <TextView
         android:id="@+id/textView5"

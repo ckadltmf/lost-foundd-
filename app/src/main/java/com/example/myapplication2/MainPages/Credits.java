@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplication2.MainPages;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication2.R;
 
 
 public class Credits extends AppCompatActivity {

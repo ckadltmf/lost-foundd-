@@ -1,4 +1,4 @@
-package com.example.myapplication2;
+package com.example.myapplication2.AddPages;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,22 +19,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication2.MainPages.MainActivity;
+import com.example.myapplication2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Report extends AppCompatActivity {
+public class AddReport extends AppCompatActivity {
     Button mSubmit;
     FirebaseDatabase FBDB;
     DatabaseReference DBRF;
@@ -87,19 +87,19 @@ public class Report extends AppCompatActivity {
                 DBRF.child(subject_spinner).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(Report.this,"Your report added Successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddReport.this,"Your report added Successfully",Toast.LENGTH_SHORT).show();
                         if(ObjectImage!=null) {
                             Log.d(x,"TAG");
                             fileRef = storageReference.child("report/"+x+"/ReportIMG.jpg");
                             uploadImageToFirebase(imageUri);
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             return;
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Report.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddReport.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
                     }
                 });
                 /* fStore.collection("report").document("unchecked").collection(subject_spinner).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
