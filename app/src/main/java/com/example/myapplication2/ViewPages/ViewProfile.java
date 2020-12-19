@@ -30,53 +30,45 @@ public class ViewProfile extends AppCompatActivity {
     TextView mName,mEmail,mPhone;
     ImageView mViewProfileImage;
     Button mInspectorButton;
-    FirebaseUser fBase;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
-    StorageReference storageReference;
-    String userType,userAccess;
+    ObjectUser CurrUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_profile_activity);
-        ObjectUser user= (ObjectUser) getIntent().getSerializableExtra("UserObject");
-        fAuth=FirebaseAuth.getInstance();
-        fStore=FirebaseFirestore.getInstance();
+        String UserID= getIntent().getStringExtra("UserObject");
+        FirebaseAuth fAuth=FirebaseAuth.getInstance();
         mName=findViewById(R.id.viewprofilename);
         mEmail=findViewById(R.id.viewprofileemail);
         mPhone=findViewById(R.id.viewprofilephone);
         mViewProfileImage=findViewById(R.id.ViewProfileImage);
         mInspectorButton=findViewById(R.id.RemovalOptions);
-        storageReference = FirebaseStorage.getInstance().getReference();
-        fBase = fAuth.getCurrentUser();
-        assert fBase != null;
-        userType= fBase.getUid();
-            StorageReference profileRef = storageReference.child("users/" + user.getUserKey() + "/profile.jpg");
-            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
+
+        FirebaseStorage.getInstance().getReference().child("users/" + UserID + "/profile.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
                     Picasso.get().load(uri).into(mViewProfileImage);
                 }
-            });
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/").child(user.getUserKey());
+        });
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    mPhone.setText(dataSnapshot.child("phone").getValue().toString());
-                    mName.setText(dataSnapshot.child("fName").getValue().toString());
-                    mEmail.setText(dataSnapshot.child("email").getValue().toString());
-                    userAccess=dataSnapshot.child("type").getValue().toString();
-                    if(!userAccess.equals("Inspector")){
-                        mInspectorButton.setVisibility(View.GONE);
-                    }
+                CurrUser=new ObjectUser(
+                        dataSnapshot.child(UserID).child("email").getValue().toString(),
+                        dataSnapshot.child(UserID).child("fName").getValue().toString(),
+                        dataSnapshot.child(UserID).child("phone").getValue().toString(),
+                        dataSnapshot.child(UserID).child("type").getValue().toString());
 
-                }else {
-                    //Log.d("tag", "onEvent: Document: "+UserID+" do not exists");
+                mPhone.setText(CurrUser.getPhone());
+                mName.setText(CurrUser.getFullName());
+                mEmail.setText(CurrUser.getEmail());
+                if(!dataSnapshot.child(fAuth.getCurrentUser().getUid()).child("type").getValue().toString().equals("Inspector")){
+                    mInspectorButton.setVisibility(View.GONE);
                 }
-            }
 
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

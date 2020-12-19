@@ -33,7 +33,6 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
         ArrayList<ObjectForm> DataArrayList= new ArrayList<>();
         Context context;
         ArrayList<ObjectForm> items;
-        ObjectUser user;
 
         public FormsAdapter(Context c , ArrayList<ObjectForm> p)
         {
@@ -94,9 +93,8 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                        ObjectUser user=new ObjectUser(DataArrayList.get(position).getUserID());
                         Intent intent= new Intent(context, ViewProfile.class);
-                        intent.putExtra("UserObject", user);
+                        intent.putExtra("UserObject", DataArrayList.get(position).getUserID());
 
                         context.startActivity(intent);
                     }
