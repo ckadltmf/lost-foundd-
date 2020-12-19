@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.myapplication2.Adapters.FormsAdapter;
-import com.example.myapplication2.ClassObject.Form;
+import com.example.myapplication2.ClassObject.ObjectForm;
 import com.example.myapplication2.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +29,7 @@ public class FormsScrollView extends AppCompatActivity {
 
     DatabaseReference reference;
     RecyclerView recyclerView;
-    ArrayList<Form> list;
+    ArrayList<ObjectForm> list;
     FormsAdapter adapter;
     Spinner Happened_spinner;
     private  String actObject[]={"Mobile","Jewel","Clothing","Pet","Electronics","Car","Bike","Bag","Glasses","jewel"};
@@ -46,7 +46,7 @@ public class FormsScrollView extends AppCompatActivity {
         Happened_spinner.setAdapter(HappendAdapter);
         recyclerView = (RecyclerView) findViewById(R.id.myRecycler);
         recyclerView.setLayoutManager( new LinearLayoutManager(this));
-        list = new ArrayList<Form>();
+        list = new ArrayList<ObjectForm>();
         reference = FirebaseDatabase.getInstance().getReference().child("forms").child("Lost");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -78,7 +78,7 @@ public class FormsScrollView extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                list = new ArrayList<Form>();
+                list = new ArrayList<ObjectForm>();
                 if(Happened_spinner.getSelectedItem().equals("Lost")){
                   //  list.clear();
                     loop("Lost");
@@ -113,7 +113,7 @@ public class FormsScrollView extends AppCompatActivity {
             reference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Form p= dataSnapshot.getValue(Form.class);
+                    ObjectForm p= dataSnapshot.getValue(ObjectForm.class);
                     p.setCategory(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getKey());
                     p.setHappend(FirebaseDatabase.getInstance().getReference("forms").child(Look).getKey());
                     p.setGeneratedKey(dataSnapshot.getKey());

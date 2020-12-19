@@ -3,7 +3,7 @@ package com.example.myapplication2.ClassObject;
 
 import java.io.Serializable;
 
-public class Form implements Serializable {
+public class ObjectForm implements Serializable {
 
     private String ObjectTitle;
     private String description;
@@ -17,9 +17,9 @@ public class Form implements Serializable {
     private String category;
     private String happend;
 
-    public Form() {}
+    public ObjectForm() {}
 
-    public Form(Form f) {
+    public ObjectForm(ObjectForm f) {
         this.ObjectTitle = f.ObjectTitle;
         this.description = f.description;
         this.img = f.img;

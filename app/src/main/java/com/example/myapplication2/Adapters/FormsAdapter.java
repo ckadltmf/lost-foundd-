@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication2.ClassObject.Form;
+import com.example.myapplication2.ClassObject.ObjectForm;
+import com.example.myapplication2.ClassObject.ObjectUser;
 import com.example.myapplication2.R;
 import com.example.myapplication2.ViewPages.ViewForm;
 import com.example.myapplication2.ViewPages.ViewProfile;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,11 +30,12 @@ import java.util.ArrayList;
 
 public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder> {
 
-        ArrayList<Form> DataArrayList= new ArrayList<>();
+        ArrayList<ObjectForm> DataArrayList= new ArrayList<>();
         Context context;
-        ArrayList<Form> items;
+        ArrayList<ObjectForm> items;
+        ObjectUser user;
 
-        public FormsAdapter(Context c , ArrayList<Form> p)
+        public FormsAdapter(Context c , ArrayList<ObjectForm> p)
         {
             context = c;
             items = p;
@@ -76,7 +84,7 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
                     public void onClick(View v) {
                         Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
                         Intent intent= new Intent(context, ViewForm.class);
-                        Form form=new Form(DataArrayList.get(position));
+                        ObjectForm form=new ObjectForm(DataArrayList.get(position));
                         intent.putExtra("FormObject",form);
 
                         context.startActivity(intent);
@@ -86,7 +94,10 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
+                        ObjectUser user=new ObjectUser(DataArrayList.get(position).getUserID());
                         Intent intent= new Intent(context, ViewProfile.class);
+                        intent.putExtra("UserObject", user);
+
                         context.startActivity(intent);
                     }
                 });

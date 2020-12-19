@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication2.ClassObject.Form;
+import com.example.myapplication2.ClassObject.ObjectForm;
 import com.example.myapplication2.R;
 import com.squareup.picasso.Picasso;
 
@@ -17,7 +17,7 @@ public class ViewForm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_post);
-        Form form= (Form) getIntent().getSerializableExtra("FormObject");
+        ObjectForm form= (ObjectForm) getIntent().getSerializableExtra("FormObject");
 
         mObjectTitle=findViewById(R.id.viewpostobject);
         mLostFound=findViewById(R.id.viewpostlostfound);

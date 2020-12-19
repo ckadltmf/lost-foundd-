@@ -11,7 +11,7 @@ package com.example.myapplication2.Adapters;
         import android.widget.TextView;
         import android.widget.Toast;
 
-        import com.example.myapplication2.ClassObject.Report;
+        import com.example.myapplication2.ClassObject.ObjectReport;
         import com.example.myapplication2.R;
         import com.example.myapplication2.ViewPages.ViewForm;
 
@@ -20,11 +20,11 @@ package com.example.myapplication2.Adapters;
 
 public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.MyViewHolder> {
 
-    ArrayList<Report> reportsArrayList = new ArrayList<>();
+    ArrayList<ObjectReport> reportsArrayList = new ArrayList<>();
     Context context;
-    ArrayList<Report> reports;
+    ArrayList<ObjectReport> reports;
 
-    public ReportsAdapter(Context c , ArrayList<Report> p)
+    public ReportsAdapter(Context c , ArrayList<ObjectReport> p)
     {
         context = c;
         reports = p;

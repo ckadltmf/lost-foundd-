@@ -1,6 +1,6 @@
 package com.example.myapplication2.ClassObject;
 
-public class Report {
+public class ObjectReport {
 
 
     private String Description;
@@ -11,10 +11,10 @@ public class Report {
 
     private boolean permission;
 
-    public Report() {
+    public ObjectReport() {
     }
 
-    public Report(String description, String UserID) {
+    public ObjectReport(String description, String UserID) {
         this.Description = description;
         this.UserID = UserID;
 

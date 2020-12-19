@@ -13,7 +13,7 @@ package com.example.myapplication2.ScrollView;
         import android.widget.Toast;
 
         import com.example.myapplication2.Adapters.ReportsAdapter;
-        import com.example.myapplication2.ClassObject.Report;
+        import com.example.myapplication2.ClassObject.ObjectReport;
         import com.example.myapplication2.R;
         import com.google.firebase.database.ChildEventListener;
         import com.google.firebase.database.DataSnapshot;
@@ -28,7 +28,7 @@ public class ReportsScrollView extends AppCompatActivity {
 
     DatabaseReference reference;
     RecyclerView recyclerView;
-    ArrayList<Report> list;
+    ArrayList<ObjectReport> list;
     ReportsAdapter adapter;
     private  String actReport[]={"Scam","Fake advertise","inappropriate","harassment","other"};
 
@@ -44,7 +44,7 @@ public class ReportsScrollView extends AppCompatActivity {
         spinner.setVisibility(View.INVISIBLE);
         TextView textView = findViewById(R.id.textView9);
         textView.setVisibility(View.INVISIBLE);
-        list = new ArrayList<Report>();
+        list = new ArrayList<ObjectReport>();
         reference = FirebaseDatabase.getInstance().getReference().child("report");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,7 +81,7 @@ public class ReportsScrollView extends AppCompatActivity {
             reference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Report p= dataSnapshot.getValue(Report.class);
+                    ObjectReport p= dataSnapshot.getValue(ObjectReport.class);
                     p.setReportType(FirebaseDatabase.getInstance().getReference("report").child(object).getKey());
                     list.add(p);
 
