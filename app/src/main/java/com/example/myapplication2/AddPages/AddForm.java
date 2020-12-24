@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,8 +22,15 @@ import android.widget.Toast;
 
 import com.example.myapplication2.MainPages.MainActivity;
 import com.example.myapplication2.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -84,6 +92,7 @@ public class AddForm extends AppCompatActivity  {
         imageuploadtext=findViewById(R.id.textView7);
         mDate = (TextView) findViewById(R.id.date);
         StatusText=findViewById(R.id.textView25);
+
         if(intent.getStringExtra("CALLED").equals("Main")){
             Status_spinner.setVisibility(View.GONE);
             StatusText.setVisibility(View.GONE);

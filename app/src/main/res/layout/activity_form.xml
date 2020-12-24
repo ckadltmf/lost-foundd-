@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".AddPages.AddForm">
 
+
+
+
     <EditText
         android:id="@+id/ObjectName"
         android:layout_width="274dp"

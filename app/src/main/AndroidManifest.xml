@@ -26,6 +26,8 @@
         <activity android:name=".MainPages.Credits" />
         <activity android:name=".ViewPages.ViewForm" />
         <activity android:name=".ScrollView.ReportsScrollView" />
+        <activity android:name=".ScrollView.MyPostsScrollView" />
+
 
         <activity android:name=".MainPages.Register">
             <intent-filter>

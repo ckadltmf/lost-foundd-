@@ -17,6 +17,7 @@ import com.example.myapplication2.AddPages.AddReport;
 import com.example.myapplication2.MyPosts;
 import com.example.myapplication2.R;
 import com.example.myapplication2.ScrollView.FormsScrollView;
+import com.example.myapplication2.ScrollView.MyPostsScrollView;
 import com.example.myapplication2.ScrollView.ReportsScrollView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -175,7 +176,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), AddReport.class));
     }
     public void myPosts(View view) {
-        startActivity(new Intent(getApplicationContext(), MyPosts.class));
+       // startActivity(new Intent(getApplicationContext(), MyPosts.class));
+        startActivity(new Intent(getApplicationContext(), MyPostsScrollView.class));
+
     }
     public void inspector(View view) {
        // startActivity(new Intent(getApplicationContext(), AllReports.class));
