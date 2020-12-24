@@ -12,14 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
         <activity android:name=".ScrollView.FormsScrollView"></activity>
-        <activity android:name=".AllReports" />
         <activity android:name=".MainPages.Login" />
         <activity android:name=".MainPages.MainActivity" />
         <activity android:name=".MainPages.Settings" />
         <activity android:name=".MainPages.EditProfile" />
         <activity android:name=".AddPages.AddForm" /> <!-- <activity android:name=".scrolling_page" /> -->
-        <activity android:name=".AllPosts" />
-        <activity android:name=".MyPosts" />
         <activity android:name=".ViewPages.ViewProfile" />
         <activity android:name=".AddPages.AddReport" />
         <activity android:name=".ViewPages.ViewReport" />

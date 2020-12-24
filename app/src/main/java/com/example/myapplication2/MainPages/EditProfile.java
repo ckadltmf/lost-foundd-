@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -35,7 +34,6 @@ public class EditProfile extends AppCompatActivity {
     ImageView profileImageView;
     Button saveBtn;
     FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     FirebaseUser user;
     StorageReference storageReference;
     FirebaseUser fBase;
@@ -52,7 +50,6 @@ public class EditProfile extends AppCompatActivity {
         String phone = data.getStringExtra("phone");
 
         fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
         user = fAuth.getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference();
 

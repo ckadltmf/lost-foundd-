@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.myapplication2.AddPages.AddForm;
 import com.example.myapplication2.AddPages.AddReport;
-import com.example.myapplication2.MyPosts;
 import com.example.myapplication2.R;
 import com.example.myapplication2.ScrollView.FormsScrollView;
 import com.example.myapplication2.ScrollView.MyPostsScrollView;
