@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser fBase;
     Button inspector;
     Button report;
-    /////
-    FirebaseDatabase FBDB;
-    DatabaseReference DBRF;
     String userAccess ;
 
 
@@ -86,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.my_menu,menu);
-        MenuItem item=menu.findItem(R.id.search_icon);
+        //MenuItem item=menu.findItem(R.id.search_icon);
 
-        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+/*        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 Toast.makeText(MainActivity.this,"Search expanded",Toast.LENGTH_SHORT).show();
@@ -104,10 +101,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-        menu.findItem(R.id.search_icon).setOnActionExpandListener(onActionExpandListener);
+      menu.findItem(R.id.search_icon).setOnActionExpandListener(onActionExpandListener);
         SearchView searchView = (SearchView) menu.findItem(R.id.search_icon).getActionView();
-        searchView.setQueryHint("search here...");
+        searchView.setQueryHint("search here...");*/
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -116,8 +112,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId())
         {
-            case R.id.search_icon:
+            case R.id.Search:
                 Toast.makeText(this,"Search",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), Search.class));
                 return true;
             case R.id.refresh:
                 Toast.makeText(this,"Refresh",Toast.LENGTH_SHORT).show();
@@ -158,8 +155,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void allPosts(View view) {
-        //startActivity(new Intent(getApplicationContext(), AllPosts.class));
-        startActivity(new Intent(getApplicationContext(), FormsScrollView.class));
+        Intent intent=new Intent(MainActivity.this, FormsScrollView.class);
+        intent.putExtra("CALLED","Main");
+        startActivity(intent);
     }
 
     public void addform(View view) {

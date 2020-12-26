@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication2.Adapters.FormsAdapter;
@@ -32,6 +36,8 @@ public class FormsScrollView extends AppCompatActivity {
     ArrayList<ObjectForm> list;
     FormsAdapter adapter;
     Spinner Happened_spinner;
+    TextView headline;
+    Intent intent;
     private  String actObject[]={"Mobile","Jewel","Clothing","Pet","Electronics","Car","Bike","Bag","Glasses","jewel"};
     private  String happend[]={"Lost","Found"};
 
@@ -47,8 +53,15 @@ public class FormsScrollView extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.myRecycler);
         recyclerView.setLayoutManager( new LinearLayoutManager(this));
         list = new ArrayList<ObjectForm>();
+        headline=findViewById(R.id.textView9);
         reference = FirebaseDatabase.getInstance().getReference().child("forms").child("Lost");
-        reference.addValueEventListener(new ValueEventListener() {
+        intent=getIntent();
+        if(intent.getStringExtra("CALLED").equals("Search")){
+            Happened_spinner.setVisibility(View.GONE);
+            headline.setVisibility(View.GONE);
+            loop(intent.getStringExtra("LostFound"));
+        }
+/*        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -60,7 +73,7 @@ public class FormsScrollView extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(FormsScrollView.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
 
         recyclerView.setRecyclerListener(new RecyclerView.RecyclerListener() {
@@ -109,15 +122,29 @@ public class FormsScrollView extends AppCompatActivity {
     public void loop(String Look){
        // list.clear();
         for (String object : actObject) {
+            //in this section check from where avctivity you came from (search or ALL POSTS) and give the reference בהתאם. check that actObject is set to the category that gave you
             reference = FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object);
             reference.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    ObjectForm p= dataSnapshot.getValue(ObjectForm.class);
-                    p.setCategory(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getKey());
-                    p.setHappend(FirebaseDatabase.getInstance().getReference("forms").child(Look).getKey());
-                    p.setGeneratedKey(dataSnapshot.getKey());
-                    list.add(p);
+                    if(intent.getStringExtra("CALLED").equals("Search")){
+                        String searchField=intent.getStringExtra("SearchField");
+                        String searchFieldValue=dataSnapshot.child(searchField).getValue().toString();
+                        if(searchFieldValue.equals(intent.getStringExtra("FreeSearch"))){
+                            ObjectForm p = dataSnapshot.getValue(ObjectForm.class);
+                            p.setCategory(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getKey());
+                            p.setHappend(FirebaseDatabase.getInstance().getReference("forms").child(Look).getKey());
+                            p.setGeneratedKey(dataSnapshot.getKey());
+                            list.add(p);
+                        }
+                    }
+                    else {
+                        ObjectForm p = dataSnapshot.getValue(ObjectForm.class);
+                        p.setCategory(FirebaseDatabase.getInstance().getReference("forms").child(Look).child(object).getKey());
+                        p.setHappend(FirebaseDatabase.getInstance().getReference("forms").child(Look).getKey());
+                        p.setGeneratedKey(dataSnapshot.getKey());
+                        list.add(p);
+                    }
 
                     adapter = new FormsAdapter(FormsScrollView.this,list);
                     recyclerView.setAdapter(adapter);

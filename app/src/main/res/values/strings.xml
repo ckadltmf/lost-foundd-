@@ -12,6 +12,26 @@
         <item>Lost</item>
         <item>Found</item>
     </string-array>
+    <string-array name="MainTitleSpinner">
+        <item>Choose User or Form</item>
+        <item>User</item>
+        <item>Form</item>
+    </string-array>
+<!--    <string-array name="SearchCategoryUserSpinner">
+        <item>Choose Category</item>
+        <item>eMail</item>
+        <item>Name</item>
+        <item>Phone</item>
+    </string-array>-->
+    <string-array name="SearchCategoryFormSpinner">
+        <item>Choose Field</item>
+        <item>ObjectTitle</item>
+        <item>date</item>
+        <item>description</item>
+        <item>place</item>
+    </string-array>
+
+
     <string-array name="status">
         <item>Choose status</item>
         <item>Active</item>

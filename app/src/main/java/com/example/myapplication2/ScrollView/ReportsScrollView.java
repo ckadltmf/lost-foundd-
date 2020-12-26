@@ -83,6 +83,7 @@ public class ReportsScrollView extends AppCompatActivity {
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     ObjectReport p= dataSnapshot.getValue(ObjectReport.class);
                     p.setReportType(FirebaseDatabase.getInstance().getReference("report").child(object).getKey());
+                    p.setGeneratedKey(dataSnapshot.getKey());
                     list.add(p);
 
                     adapter = new ReportsAdapter(ReportsScrollView.this,list);

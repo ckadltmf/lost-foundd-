@@ -16,32 +16,26 @@
         <menu>
 
             <item
-                android:title="Refresh"
-                android:icon="@drawable/ic_baseline_refresh_24"
                 android:id="@+id/refresh"
-                app:showAsAction="never"/>
-<!--            <item
-                android:title="Lost"
-                android:icon="@drawable/ic_baseline_settings_24"
-                android:id="@+id/Lost"
-                app:showAsAction="never"/>
-
+                android:icon="@android:drawable/ic_menu_rotate"
+                android:title="Refresh"
+                app:showAsAction="never" />
             <item
-                android:title="Found"
-                android:icon="@drawable/ic_baseline_settings_24"
-                android:id="@+id/Found"
-                app:showAsAction="never"/>-->
-            <item
-                android:title="Credits"
-                android:icon="@drawable/ic_baseline_settings_24"
                 android:id="@+id/Credits"
-                app:showAsAction="never"/>
+                android:icon="@android:drawable/star_off"
+                android:title="Credits"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/Search"
+                android:icon="@android:drawable/ic_search_category_default"
+                android:title="Search"
+                app:showAsAction="never" />
 
             <item
-                android:title="Log Out"
-                android:icon="@drawable/ic_baseline_settings_24"
                 android:id="@+id/logOut"
-                app:showAsAction="never"/>
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="Log Out"
+                app:showAsAction="never" />
 
         </menu>
 

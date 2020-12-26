@@ -1,5 +1,6 @@
 package com.example.myapplication2.ViewPages;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,22 +27,58 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class ViewProfile extends AppCompatActivity {
-    TextView mName,mEmail,mPhone;
+    TextView mName,mEmail,mPhone,namehint,phonehint,mailhint,NoUsersFound;
     ImageView mViewProfileImage;
     Button mInspectorButton;
     ObjectUser CurrUser;
+    String UserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_profile_activity);
-        String UserID= getIntent().getStringExtra("UserObject");
         FirebaseAuth fAuth=FirebaseAuth.getInstance();
+        namehint=findViewById(R.id.textView11);
+        mailhint=findViewById(R.id.textView12);
+        phonehint=findViewById(R.id.textView13);
         mName=findViewById(R.id.viewprofilename);
         mEmail=findViewById(R.id.viewprofileemail);
         mPhone=findViewById(R.id.viewprofilephone);
         mViewProfileImage=findViewById(R.id.ViewProfileImage);
         mInspectorButton=findViewById(R.id.RemovalOptions);
+        NoUsersFound=findViewById(R.id.NoUsersFound);
+        NoUsersFound.setVisibility(View.GONE);
+        Intent intent=getIntent();
+        String Called=intent.getStringExtra("CALLED");
+        if(Called.equals("Search")){
+            FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String EmailField=intent.getStringExtra("FreeSearch");
+                    for (DataSnapshot childes : dataSnapshot.getChildren()) {
+                        if(childes.child("email").getValue().equals(EmailField)){
+                            UserID=childes.getKey();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            if(UserID==null){
+                namehint.setVisibility(View.GONE);
+                phonehint.setVisibility(View.GONE);
+                mailhint.setVisibility(View.GONE);
+                mInspectorButton.setVisibility(View.GONE);
+                NoUsersFound.setVisibility(View.VISIBLE);
+                return;
+            }
+        }
+        else {
+            UserID = intent.getStringExtra("UserObject");
+        }
 
         FirebaseStorage.getInstance().getReference().child("users/" + UserID + "/profile.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -49,7 +86,6 @@ public class ViewProfile extends AppCompatActivity {
                     Picasso.get().load(uri).into(mViewProfileImage);
                 }
         });
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
