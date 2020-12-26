@@ -26,7 +26,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,7 +42,6 @@ public class AddReport extends AppCompatActivity {
     EditText mDescription;
     ImageView ObjectImage;
     FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     StorageReference storageReference;
     String DR;
     Uri imageUri;
@@ -59,7 +57,6 @@ public class AddReport extends AppCompatActivity {
         mSubject_spinner.setAdapter(adapter);
         mDescription = findViewById(R.id.full_description);
         ObjectImage = findViewById(R.id.ReportImageView);
-        fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         mSubmit = findViewById(R.id.reportSubmit);
         imageuploadtext=findViewById(R.id.textView8);

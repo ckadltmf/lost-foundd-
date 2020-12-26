@@ -1,11 +1,14 @@
 package com.example.myapplication2.ClassObject;
 
-public class ObjectReport {
+import java.io.Serializable;
+
+public class ObjectReport implements Serializable {
 
 
     private String Description;
     private String reportType;
     private String UserID;
+    private String GeneratedKey;
 
 
 
@@ -17,9 +20,14 @@ public class ObjectReport {
     public ObjectReport(String description, String UserID) {
         this.Description = description;
         this.UserID = UserID;
-
     }
 
+    public ObjectReport(ObjectReport objectReport) {
+        this.Description=objectReport.Description;
+        this.reportType=objectReport.reportType;
+        this.UserID=objectReport.UserID;
+        this.GeneratedKey=objectReport.GeneratedKey;
+    }
 
 
     public String getDescription() {
@@ -44,5 +52,11 @@ public class ObjectReport {
 
     public void setReportType(String reportType) {
         this.reportType = reportType;
+    }
+    public String getGeneratedKey() {
+        return GeneratedKey;
+    }
+    public void setGeneratedKey(String key) {
+        this.GeneratedKey=key;
     }
 }

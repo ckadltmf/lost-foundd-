@@ -22,22 +22,14 @@ import android.widget.Toast;
 
 import com.example.myapplication2.MainPages.MainActivity;
 import com.example.myapplication2.R;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.RectangularBounds;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -55,7 +47,6 @@ public class AddForm extends AppCompatActivity  {
     Spinner Happened_spinner, Category_spinner, Status_spinner;
     ImageView ObjectImage;
     FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     StorageReference storageReference;
     Uri imageUri;
     String x,y,happened,category;
@@ -87,7 +78,6 @@ public class AddForm extends AppCompatActivity  {
         mDescription=findViewById(R.id.description);
         mSubmit = findViewById(R.id.submit);
         ObjectImage = findViewById(R.id.ObjectImageView);
-        fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         imageuploadtext=findViewById(R.id.textView7);
         mDate = (TextView) findViewById(R.id.date);

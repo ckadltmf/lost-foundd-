@@ -94,6 +94,7 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
                     public void onClick(View v) {
                         Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
                         Intent intent= new Intent(context, ViewProfile.class);
+                        intent.putExtra("CALLED","ALLPOSTS");
                         intent.putExtra("UserObject", DataArrayList.get(position).getUserID());
 
                         context.startActivity(intent);

@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.HashMap;
@@ -36,7 +35,6 @@ public class Register extends AppCompatActivity {
     TextView mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
-    FirebaseFirestore fStore;
     String userID;
     Spinner _spinner;
     FirebaseUser updateUser;
@@ -55,7 +53,6 @@ public class Register extends AppCompatActivity {
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn = findViewById(R.id.LoginBtn);
         progressBar = findViewById(R.id.progressBar);
-        fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         mLoginBtn =  findViewById(R.id.createText);
 

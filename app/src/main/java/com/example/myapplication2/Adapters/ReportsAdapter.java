@@ -14,6 +14,9 @@ package com.example.myapplication2.Adapters;
         import com.example.myapplication2.ClassObject.ObjectReport;
         import com.example.myapplication2.R;
         import com.example.myapplication2.ViewPages.ViewForm;
+        import com.example.myapplication2.ViewPages.ViewProfile;
+        import com.example.myapplication2.ViewPages.ViewReport;
+        import com.squareup.picasso.Picasso;
 
         import java.util.ArrayList;
 
@@ -40,7 +43,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.item.setText(reports.get(position).getReportType());
         holder.description.setText(reports.get(position).getDescription());
-       // Picasso.get().load(reports.get(position).getImg()).into(holder.profilePic);
+        //Picasso.get().load(reports.get(position).getImg()).into(holder.profilePic);
         //holder.btn.setVisibility(View.VISIBLE);
         holder.onClick(position);
         reportsArrayList.add(reports.get(position));
@@ -55,24 +58,36 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.MyViewHo
     {
         TextView item,description;
         //ImageView profilePic;
-        Button btn;
+        Button ViewPostButton;
+        Button ViewProfileButton;
         public MyViewHolder(View itemView) {
             super(itemView);
             item = (TextView) itemView.findViewById(R.id.Item);
             description = (TextView) itemView.findViewById(R.id.Description);
-            btn = (Button) itemView.findViewById(R.id.viewpostbutton);
+            ViewPostButton = itemView.findViewById(R.id.viewpostbutton);
+            ViewProfileButton=itemView.findViewById(R.id.viewprofilebutton);
         }
         public void onClick(final int position)
         {
-            btn.setOnClickListener(new View.OnClickListener() {
+            ViewPostButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                    Intent intent= new Intent(context, ViewForm.class);
-                    intent.putExtra("reportType", reportsArrayList.get(position).getReportType());
-                    intent.putExtra( "description", reportsArrayList.get(position).getDescription());
-
-                    //context.startActivity(intent);
+                    Intent intent= new Intent(context, ViewReport.class);
+                    ObjectReport report=new ObjectReport(reportsArrayList.get(position));
+                    intent.putExtra("ObjectReport",report);
+                    intent.putExtra("GeneratedKey", reportsArrayList.get(position).getGeneratedKey());
+                    context.startActivity(intent);
+                }
+            });
+            ViewProfileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent= new Intent(context, ViewProfile.class);
+                    intent.putExtra("CALLED","VIEWREPORT");
+                    intent.putExtra("UserObject",reportsArrayList.get(position).getUserID());
+                    context.startActivity(intent);
                 }
             });
         }
