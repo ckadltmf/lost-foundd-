@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
-        <activity android:name=".ScrollView.FormsScrollView"></activity>
+        <activity android:name=".Warning_Mail"></activity>
+        <activity android:name=".ScrollView.FormsScrollView" />
         <activity android:name=".AllReports" />
         <activity android:name=".MainPages.Login" />
         <activity android:name=".MainPages.MainActivity" />
@@ -27,8 +28,6 @@
         <activity android:name=".ViewPages.ViewForm" />
         <activity android:name=".ScrollView.ReportsScrollView" />
         <activity android:name=".ScrollView.MyPostsScrollView" />
-
-
         <activity android:name=".MainPages.Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,6 @@
 package com.example.myapplication2.ViewPages;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,12 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication2.ClassObject.ObjectUser;
 import com.example.myapplication2.R;
+import com.example.myapplication2.ScrollView.ReportsScrollView;
+import com.example.myapplication2.Warning_Mail;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,5 +81,18 @@ public class ViewProfile extends AppCompatActivity {
 /*        Log.d(user.getPhone()," DEBUGG");
         Log.d(user.getEmail()," DEBUGG");
         Log.d(user.getFullName()," DEBUGG");*/
+
+
+        mInspectorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(ViewProfile.this, Warning_Mail.class);
+                intent.putExtra("email", mEmail.getText().toString());
+                startActivity(intent);
+               // startActivity(new Intent(getApplicationContext(), ReportsScrollView.class));
+            }
+        });
+
+
     }
 }
