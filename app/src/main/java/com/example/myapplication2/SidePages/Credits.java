@@ -1,4 +1,4 @@
-package com.example.myapplication2.MainPages;
+package com.example.myapplication2.SidePages;
 
 import android.os.Bundle;
 import android.os.Handler;

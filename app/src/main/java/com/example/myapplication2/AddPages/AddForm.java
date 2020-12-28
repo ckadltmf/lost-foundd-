@@ -11,7 +11,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication2.ClassObject.ObjectForm;
+import com.example.myapplication2.ClassObject.ObjectUser;
 import com.example.myapplication2.MainPages.MainActivity;
 import com.example.myapplication2.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -49,7 +50,7 @@ public class AddForm extends AppCompatActivity  {
     FirebaseAuth fAuth;
     StorageReference storageReference;
     Uri imageUri;
-    String x,y,happened,category;
+    String GeneratedKey,happened,category;
     StorageReference fileRef;
     TextView mDate, imageuploadtext,StatusText;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -59,8 +60,10 @@ public class AddForm extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
         Intent intent=getIntent();
-        x=intent.getStringExtra("PATH");
-        y=intent.getStringExtra("KEY");
+        ObjectForm CurrForm=(ObjectForm) intent.getSerializableExtra("ObjectForm");
+        if(CurrForm!=null) {
+            GeneratedKey = CurrForm.getGeneratedKey();
+        }
         FBDB=FirebaseDatabase.getInstance();
         DBRF=FBDB.getReference("forms");
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -109,31 +112,25 @@ public class AddForm extends AppCompatActivity  {
                 mDate.setText(date);
             }
         };
-        if(x!=null) {
+        if(GeneratedKey !=null) {
             //Log.d("x is:", x);
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(x);
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    mObject.setText(String.valueOf(dataSnapshot.child("ObjectTitle").getValue()));
-                    mDate.setText(String.valueOf(dataSnapshot.child("date").getValue()));
-                    mDescription.setText(String.valueOf(dataSnapshot.child("description").getValue()));
-                    mPlace.setText(String.valueOf(dataSnapshot.child("place").getValue()));
-                    int status=adapter3.getPosition(String.valueOf(dataSnapshot.child("status").getValue()));
-                    int lostfound = adapter.getPosition(String.valueOf(databaseReference.getParent().getParent().getKey()));
-                    int categ = adapter2.getPosition(String.valueOf(databaseReference.getParent().getKey()));
+                    mObject.setText(CurrForm.getObjectTitle());
+                    mDate.setText(CurrForm.getDate());
+                    mDescription.setText(CurrForm.getDescription());
+                    mPlace.setText(CurrForm.getPlace());
+                    int status=adapter3.getPosition(CurrForm.getStatus());
+                    int lostfound = adapter.getPosition(CurrForm.getHappend());
+                    int categ = adapter2.getPosition(CurrForm.getCategory());
 /*                    Log.d(String.valueOf(databaseReference.getParent().getParent()), String.valueOf(databaseReference.getParent()));
                     Log.d("Happened_spinner: " + lostfound,"category_spinner: " + categ);*/
                     Happened_spinner.setSelection(lostfound);
                     Category_spinner.setSelection(categ);
                     Status_spinner.setSelection(status);
-                }
+                    imgUri=CurrForm.getImg();
+                    if(imgUri!=null){
+                        imageuploadtext.setHint("Image Uploaded!");
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
         }
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,11 +163,8 @@ public class AddForm extends AppCompatActivity  {
                     ((TextView) Category_spinner.getSelectedView()).setError("");
                     return;
                 }
-                if(x==null) {
-                    x = DBRF.child(happened).child(category).push().getKey() + "";
-                }
-                else{
-                    x=y;
+                if(GeneratedKey ==null) {
+                    GeneratedKey = DBRF.child(happened).child(category).push().getKey() + "";
                 }
                 Map<String, Object> forms = new HashMap<>();
                 forms.put("UserID", userID);
@@ -196,12 +190,12 @@ public class AddForm extends AppCompatActivity  {
                 //forms.put("Generated Key",x);
                 //DBRF.child(happened).child(category).push().setValue(forms);
                 //fStore.collection("forms").document(happened).collection(category).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
-                    DBRF.child(happened).child(category).child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    DBRF.child(happened).child(category).child(GeneratedKey).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(AddForm.this, "Your object added Successfully", Toast.LENGTH_SHORT).show();
                             if (ObjectImage != null) {
-                                fileRef = storageReference.child("forms/" + x + "/ObjectIMG.jpg");
+                                fileRef = storageReference.child("forms/" + GeneratedKey + "/ObjectIMG.jpg");
                                 uploadImageToFirebase(imageUri);
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 return;
@@ -275,7 +269,7 @@ public class AddForm extends AppCompatActivity  {
                         @Override
                         public void onSuccess(Uri uri) {
                         imgUri= uri.toString();
-                        DBRF.child(happened).child(category).child(x).child("img").setValue(imgUri);
+                        DBRF.child(happened).child(category).child(GeneratedKey).child("img").setValue(imgUri);
                         }
                     });
                 }

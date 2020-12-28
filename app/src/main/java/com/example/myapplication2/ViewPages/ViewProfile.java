@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication2.ClassObject.ObjectUser;
 import com.example.myapplication2.R;
 import com.example.myapplication2.ScrollView.ReportsScrollView;
-import com.example.myapplication2.Warning_Mail;
+import com.example.myapplication2.SidePages.Warning_Mail;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

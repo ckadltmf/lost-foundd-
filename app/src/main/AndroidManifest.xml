@@ -11,20 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication2">
-        <activity android:name=".Warning_Mail"></activity>
+        <activity android:name=".SidePages.Warning_Mail"></activity>
         <activity android:name=".ScrollView.FormsScrollView" />
-        <activity android:name=".AllReports" />
         <activity android:name=".MainPages.Login" />
         <activity android:name=".MainPages.MainActivity" />
         <activity android:name=".MainPages.Settings" />
-        <activity android:name=".MainPages.EditProfile" />
+        <activity android:name=".SidePages.EditProfile" />
         <activity android:name=".AddPages.AddForm" /> <!-- <activity android:name=".scrolling_page" /> -->
         <activity android:name=".ViewPages.ViewProfile" />
         <activity android:name=".AddPages.AddReport" />
         <activity android:name=".ViewPages.ViewReport" />
-        <activity android:name=".MainPages.Credits" />
+        <activity android:name=".SidePages.Credits" />
         <activity android:name=".ViewPages.ViewForm" />
-        <activity android:name=".MainPages.Search" />
+        <activity android:name=".SidePages.Search" />
         <activity android:name=".ScrollView.ReportsScrollView" />
         <activity android:name=".ScrollView.MyPostsScrollView" />
         <activity android:name=".MainPages.Register">

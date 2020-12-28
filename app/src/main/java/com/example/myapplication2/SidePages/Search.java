@@ -1,4 +1,4 @@
-package com.example.myapplication2.MainPages;
+package com.example.myapplication2.SidePages;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -82,6 +82,7 @@ public class Search extends AppCompatActivity {
                 }
                 if(TextUtils.isEmpty(mFreeSearch.getText())){
                     mFreeSearch.setError("Search Value Fill is required");
+                    return;
                 }
                 String mainTitle=mMainTitle_spinner.getSelectedItem().toString();
                 Intent intent;

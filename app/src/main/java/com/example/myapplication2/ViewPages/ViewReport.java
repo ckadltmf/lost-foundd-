@@ -15,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication2.ClassObject.ObjectForm;
 import com.example.myapplication2.ClassObject.ObjectReport;
 import com.example.myapplication2.ClassObject.ObjectUser;
+import com.example.myapplication2.MainPages.MainActivity;
 import com.example.myapplication2.R;
+import com.example.myapplication2.ScrollView.ReportsScrollView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,8 +71,10 @@ public class ViewReport extends AppCompatActivity {
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference("report").child(report.getGeneratedKey()).removeValue();
+                FirebaseDatabase.getInstance().getReference("report/").child(report.getReportType()).child(report.getGeneratedKey()).removeValue();
                 FirebaseStorage.getInstance().getReference("report/"+report.getGeneratedKey()+"/ReportIMG.jpg").delete();
+                startActivity(new Intent(getApplicationContext(), ReportsScrollView.class));
+                return;
             }
         });
     }

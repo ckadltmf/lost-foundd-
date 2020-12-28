@@ -1,4 +1,4 @@
-package com.example.myapplication2.MainPages;
+package com.example.myapplication2.SidePages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.myapplication2.MainPages.Settings;
 import com.example.myapplication2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

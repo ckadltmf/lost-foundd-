@@ -18,6 +18,8 @@ import com.example.myapplication2.R;
 import com.example.myapplication2.ScrollView.FormsScrollView;
 import com.example.myapplication2.ScrollView.MyPostsScrollView;
 import com.example.myapplication2.ScrollView.ReportsScrollView;
+import com.example.myapplication2.SidePages.Credits;
+import com.example.myapplication2.SidePages.Search;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
