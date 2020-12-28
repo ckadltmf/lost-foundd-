@@ -73,7 +73,7 @@ public class ViewProfile extends AppCompatActivity {
                         return;
                     }
                     else{
-                        func(UserID);
+                        func();
 
                     }
 
@@ -87,7 +87,7 @@ public class ViewProfile extends AppCompatActivity {
 
         } else {
             UserID = intent.getStringExtra("UserObject");
-            func(UserID);
+            func();
         }
 
 
@@ -104,7 +104,7 @@ public class ViewProfile extends AppCompatActivity {
 
     }
 
-    public void func(String para){
+    public void func(){
         FirebaseStorage.getInstance().getReference().child("users/" + UserID + "/profile.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

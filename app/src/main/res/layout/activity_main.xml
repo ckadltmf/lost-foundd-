@@ -16,7 +16,7 @@
         android:layout_height="80dp"
         android:layout_marginBottom="16dp"
         android:onClick="settings"
-        android:text="SETTINGS"
+        android:text="PROFILE SETTINGS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
