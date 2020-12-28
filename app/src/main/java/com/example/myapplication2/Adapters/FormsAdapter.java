@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +53,11 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
             holder.description.setText(items.get(position).getDescription());
             Picasso.get().load(items.get(position).getImg()).into(holder.profilePic);
             holder.ViewPostButton.setVisibility(View.VISIBLE);
-            holder.onClick(position);
+
+
+
+        holder.onClick(position);
+
 
         DataArrayList.add(items.get(position));
         }
@@ -68,6 +73,7 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
             ImageView profilePic;
             Button ViewPostButton;
             Button ViewProfileButton;
+
             public MyViewHolder(View itemView) {
                 super(itemView);
                 item = (TextView) itemView.findViewById(R.id.Item);
@@ -75,6 +81,7 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
                 profilePic = (ImageView) itemView.findViewById(R.id.profilePic);
                 ViewPostButton = (Button) itemView.findViewById(R.id.viewpostbutton);
                 ViewProfileButton = (Button) itemView.findViewById(R.id.viewprofilebutton);
+
             }
             public void onClick(final int position)
             {

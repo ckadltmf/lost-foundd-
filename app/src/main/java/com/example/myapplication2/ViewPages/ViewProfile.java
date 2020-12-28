@@ -35,34 +35,48 @@ public class ViewProfile extends AppCompatActivity {
     Button mInspectorButton;
     ObjectUser CurrUser;
     String UserID;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_profile_activity);
-        FirebaseAuth fAuth=FirebaseAuth.getInstance();
-        namehint=findViewById(R.id.textView11);
-        mailhint=findViewById(R.id.textView12);
-        phonehint=findViewById(R.id.textView13);
-        mName=findViewById(R.id.viewprofilename);
-        mEmail=findViewById(R.id.viewprofileemail);
-        mPhone=findViewById(R.id.viewprofilephone);
-        mViewProfileImage=findViewById(R.id.ViewProfileImage);
-        mInspectorButton=findViewById(R.id.RemovalOptions);
-        NoUsersFound=findViewById(R.id.NoUsersFound);
+        fAuth = FirebaseAuth.getInstance();
+        namehint = findViewById(R.id.textView11);
+        mailhint = findViewById(R.id.textView12);
+        phonehint = findViewById(R.id.textView13);
+        mName = findViewById(R.id.viewprofilename);
+        mEmail = findViewById(R.id.viewprofileemail);
+        mPhone = findViewById(R.id.viewprofilephone);
+        mViewProfileImage = findViewById(R.id.ViewProfileImage);
+        mInspectorButton = findViewById(R.id.RemovalOptions);
+        NoUsersFound = findViewById(R.id.NoUsersFound);
         NoUsersFound.setVisibility(View.GONE);
-        Intent intent=getIntent();
-        String Called=intent.getStringExtra("CALLED");
-        if(Called.equals("Search")){
+        Intent intent = getIntent();
+        String Called = intent.getStringExtra("CALLED");
+        if (Called.equals("Search")) {
             FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String EmailField=intent.getStringExtra("FreeSearch");
+                    String EmailField = intent.getStringExtra("FreeSearch");
                     for (DataSnapshot childes : dataSnapshot.getChildren()) {
-                        if(childes.child("email").getValue().equals(EmailField)){
-                            UserID=childes.getKey();
+                        if (childes.child("email").getValue().equals(EmailField)) {
+                            UserID = childes.getKey();
                         }
                     }
+                    if (UserID == null) {
+                        namehint.setVisibility(View.GONE);
+                        phonehint.setVisibility(View.GONE);
+                        mailhint.setVisibility(View.GONE);
+                        mInspectorButton.setVisibility(View.GONE);
+                        NoUsersFound.setVisibility(View.VISIBLE);
+                        return;
+                    }
+                    else{
+                        func(UserID);
+
+                    }
+
                 }
 
                 @Override
@@ -70,51 +84,11 @@ public class ViewProfile extends AppCompatActivity {
 
                 }
             });
-            if(UserID==null){
-                namehint.setVisibility(View.GONE);
-                phonehint.setVisibility(View.GONE);
-                mailhint.setVisibility(View.GONE);
-                mInspectorButton.setVisibility(View.GONE);
-                NoUsersFound.setVisibility(View.VISIBLE);
-                return;
-            }
-        }
-        else {
+
+        } else {
             UserID = intent.getStringExtra("UserObject");
+            func(UserID);
         }
-
-        FirebaseStorage.getInstance().getReference().child("users/" + UserID + "/profile.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                    Picasso.get().load(uri).into(mViewProfileImage);
-                }
-        });
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                CurrUser=new ObjectUser(
-                        dataSnapshot.child(UserID).child("email").getValue().toString(),
-                        dataSnapshot.child(UserID).child("fName").getValue().toString(),
-                        dataSnapshot.child(UserID).child("phone").getValue().toString(),
-                        dataSnapshot.child(UserID).child("type").getValue().toString());
-
-                mPhone.setText(CurrUser.getPhone());
-                mName.setText(CurrUser.getFullName());
-                mEmail.setText(CurrUser.getEmail());
-                if(!dataSnapshot.child(fAuth.getCurrentUser().getUid()).child("type").getValue().toString().equals("Inspector")){
-                    mInspectorButton.setVisibility(View.GONE);
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-/*        Log.d(user.getPhone()," DEBUGG");
-        Log.d(user.getEmail()," DEBUGG");
-        Log.d(user.getFullName()," DEBUGG");*/
 
 
         mInspectorButton.setOnClickListener(new View.OnClickListener() {
@@ -129,4 +103,40 @@ public class ViewProfile extends AppCompatActivity {
 
 
     }
+
+    public void func(String para){
+        FirebaseStorage.getInstance().getReference().child("users/" + UserID + "/profile.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(mViewProfileImage);
+            }
+        });
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                CurrUser = new ObjectUser(
+                        dataSnapshot.child(UserID).child("email").getValue().toString(),
+                        dataSnapshot.child(UserID).child("fName").getValue().toString(),
+                        dataSnapshot.child(UserID).child("phone").getValue().toString(),
+                        dataSnapshot.child(UserID).child("type").getValue().toString());
+
+                mPhone.setText(CurrUser.getPhone());
+                mName.setText(CurrUser.getFullName());
+                mEmail.setText(CurrUser.getEmail());
+                if (!dataSnapshot.child(fAuth.getCurrentUser().getUid()).child("type").getValue().toString().equals("Inspector")) {
+                    mInspectorButton.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
 }

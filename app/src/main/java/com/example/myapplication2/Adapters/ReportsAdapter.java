@@ -8,6 +8,7 @@ package com.example.myapplication2.Adapters;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.Button;
+        import android.widget.LinearLayout;
         import android.widget.TextView;
         import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.MyViewHo
         //holder.btn.setVisibility(View.VISIBLE);
         holder.onClick(position);
         reportsArrayList.add(reports.get(position));
+        //holder.infoWindowPopup.layout(0,30,0,0);
     }
 
     @Override
@@ -60,12 +62,14 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.MyViewHo
         //ImageView profilePic;
         Button ViewPostButton;
         Button ViewProfileButton;
+        //LinearLayout infoWindowPopup;
         public MyViewHolder(View itemView) {
             super(itemView);
             item = (TextView) itemView.findViewById(R.id.Item);
             description = (TextView) itemView.findViewById(R.id.Description);
             ViewPostButton = itemView.findViewById(R.id.viewpostbutton);
             ViewProfileButton=itemView.findViewById(R.id.viewprofilebutton);
+            //infoWindowPopup = (LinearLayout) itemView.findViewById(R.id.linear);
         }
         public void onClick(final int position)
         {

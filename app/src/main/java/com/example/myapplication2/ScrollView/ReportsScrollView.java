@@ -8,6 +8,7 @@ package com.example.myapplication2.ScrollView;
 
         import android.os.Bundle;
         import android.view.View;
+        import android.widget.LinearLayout;
         import android.widget.Spinner;
         import android.widget.TextView;
         import android.widget.Toast;
@@ -37,13 +38,11 @@ public class ReportsScrollView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scroll_view);
+        setContentView(R.layout.activity_reports_scroll_view);
         recyclerView = (RecyclerView) findViewById(R.id.myRecycler);
         recyclerView.setLayoutManager( new LinearLayoutManager(this));
-        Spinner spinner = findViewById(R.id.spinner6);
-        spinner.setVisibility(View.INVISIBLE);
-        TextView textView = findViewById(R.id.textView9);
-        textView.setVisibility(View.INVISIBLE);
+
+
         list = new ArrayList<ObjectReport>();
         reference = FirebaseDatabase.getInstance().getReference().child("report");
         reference.addValueEventListener(new ValueEventListener() {
