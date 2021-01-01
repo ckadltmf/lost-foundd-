@@ -4,41 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foregroundTint="#FFFFFF"
+    android:background="@drawable/background_3"
     tools:context=".MainPages.MainActivity">
 
 
-
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Settings"
         android:layout_width="263dp"
         android:layout_height="80dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/red_round_button2"
         android:onClick="settings"
         android:text="PROFILE SETTINGS"
+        android:textAllCaps="true"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/allPosts"
         android:layout_width="263dp"
         android:layout_height="80dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/red_round_button2"
         android:onClick="allPosts"
         android:text="ALL POSTS"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/myPosts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/inspector"
         android:layout_width="263dp"
         android:layout_height="80dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/red_round_button2"
         android:onClick="inspector"
         android:text="INSPECTOR VIEW"
         app:layout_constraintBottom_toTopOf="@+id/Settings"
@@ -47,39 +51,44 @@
         app:layout_constraintTop_toBottomOf="@+id/addForm"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/myPosts"
         android:layout_width="263dp"
         android:layout_height="80dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/red_round_button2"
         android:onClick="myPosts"
         android:text="MY POSTS"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/addForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addForm"
         android:layout_width="263dp"
         android:layout_height="80dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/red_round_button2"
         android:onClick="addform"
         android:text="Add form"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/report"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/report"
         android:layout_width="263dp"
         android:layout_height="80dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/red_round_button2"
         android:onClick="report"
         android:text="REPORT"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/Settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
