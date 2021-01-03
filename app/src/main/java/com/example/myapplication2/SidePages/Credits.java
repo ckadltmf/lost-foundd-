@@ -25,7 +25,7 @@ public class Credits extends AppCompatActivity {
 
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_credits);
         textView = findViewById(R.id.Credits);
-        textView.setText("Authors \n" + "Niv Tal\n" + "Avi Haimov\n"+"Rotem Levy\n"+"Ariel University Project\n"+"Version: 1.0\n"+"Release Date: 13/12/2020\n");
+        textView.setText("Authors \n" + "\nNiv Tal\n" + "\nAvi Haimov\n"+"\nRotem Levy\n"+"\n\nAriel University Project\n"+"\nVersion: 1.0\n"+"\nRelease Date: 13/12/2020\n");
 
         textView.startAnimation(animation);
         Handler handler = new Handler();
