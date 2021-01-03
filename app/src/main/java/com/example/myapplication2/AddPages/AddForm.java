@@ -208,34 +208,8 @@ public class AddForm extends AppCompatActivity  {
                             Toast.makeText(AddForm.this, "Failure in adding content, please try again!", Toast.LENGTH_SHORT).show();
                         }
                     });
-/*                    DBRF.child(x).setValue(forms).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(Form.this, "Your object updated Successfully", Toast.LENGTH_SHORT).show();
-                            if (ObjectImage != null) {
-                                fileRef = storageReference.child("forms/" + x + "/ObjectIMG.jpg");
-                                uploadImageToFirebase(imageUri);
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                return;
 
-                            }
-                        }
-                    });*/
 
-/*                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(Form.this,"Your object added Successfully",Toast.LENGTH_SHORT).show();
-                                    if(ObjectImage!=null) {
-                                        fileRef = storageReference.child("forms/"+documentReference.getId()+"/ObjectIMG.jpg");
-                                        uploadImageToFirebase(imageUri);
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(Form.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
-                                }
-                            });*/
             }
 
         });

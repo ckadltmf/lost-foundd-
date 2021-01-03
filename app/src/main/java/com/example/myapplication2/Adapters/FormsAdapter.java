@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.myapplication2.ClassObject.ObjectForm;
 import com.example.myapplication2.ClassObject.ObjectUser;
@@ -88,7 +88,6 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
                 ViewPostButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
                         Intent intent= new Intent(context, ViewForm.class);
                         ObjectForm form=new ObjectForm(DataArrayList.get(position));
                         intent.putExtra("FormObject",form);
@@ -99,7 +98,6 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.MyViewHolder
                 ViewProfileButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
                         Intent intent= new Intent(context, ViewProfile.class);
                         intent.putExtra("CALLED","ALLPOSTS");
                         intent.putExtra("UserObject", DataArrayList.get(position).getUserID());

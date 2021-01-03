@@ -58,19 +58,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userAccess=dataSnapshot.child("type").getValue().toString();
-                //Toast.makeText(MainActivity.this,userAccess,Toast.LENGTH_SHORT).show();
                 if(userAccess.equals("Inspector"))
                 {
                     inspector.setVisibility(View.VISIBLE);
                     report.setVisibility(View.INVISIBLE);
-                    Toast.makeText(MainActivity.this,userAccess,Toast.LENGTH_SHORT).show();
 
                 }
                 else
                 {
                     report.setVisibility(View.VISIBLE);
                     inspector.setVisibility(View.INVISIBLE);
-                    Toast.makeText(MainActivity.this,userAccess,Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -85,28 +82,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.my_menu,menu);
-        //MenuItem item=menu.findItem(R.id.search_icon);
-
-/*        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                Toast.makeText(MainActivity.this,"Search expanded",Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                Toast.makeText(MainActivity.this,"Search collapse",Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        };
-
-
-
-      menu.findItem(R.id.search_icon).setOnActionExpandListener(onActionExpandListener);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search_icon).getActionView();
-        searchView.setQueryHint("search here...");*/
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -127,14 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Credits.class));
                 return true;
 
-/*            case R.id.Lost:
-                Toast.makeText(this,"Lost",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),Form.class));
-                return true;
-            case R.id.Found:
-                Toast.makeText(this,"Found",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(),Form.class));
-                return true;*/
             case R.id.logOut:
                 FirebaseAuth.getInstance().signOut();//logout
                 startActivity(new Intent(getApplicationContext(), Login.class));
@@ -143,17 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
-        //return super.onOptionsItemSelected(item);
 
-/*
-        if(item.getItemId()==R.id.settings){
-            Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), Settings.class));
-            Toast.makeText(this,"yesss",Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
- */
     }
 
     public void allPosts(View view) {
@@ -175,12 +132,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), AddReport.class));
     }
     public void myPosts(View view) {
-       // startActivity(new Intent(getApplicationContext(), MyPosts.class));
         startActivity(new Intent(getApplicationContext(), MyPostsScrollView.class));
 
     }
     public void inspector(View view) {
-       // startActivity(new Intent(getApplicationContext(), AllReports.class));
         startActivity(new Intent(getApplicationContext(), ReportsScrollView.class));
 
     }

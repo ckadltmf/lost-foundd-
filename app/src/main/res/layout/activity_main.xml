@@ -90,5 +90,122 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="142dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="116dp"
+        android:rotation="19"
+        android:rotationX="11"
+        android:rotationY="-27"
+        app:layout_constraintBottom_toTopOf="@+id/allPosts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/_5_512" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="135dp"
+        android:layout_height="134dp"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="292dp"
+        android:layout_marginBottom="120dp"
+        android:rotation="-15"
+        android:rotationX="2"
+        android:rotationY="27"
+        app:layout_constraintBottom_toTopOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_5_512" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="86dp"
+        android:layout_height="121dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:rotation="-19"
+        android:rotationX="19"
+        android:rotationY="36"
+        app:layout_constraintBottom_toTopOf="@+id/allPosts"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.597"
+        app:srcCompat="@drawable/phone" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="91dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="288dp"
+        android:layout_marginTop="456dp"
+        android:rotation="11"
+        android:rotationX="15"
+        android:rotationY="-19"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.978"
+        app:layout_constraintStart_toEndOf="@+id/imageView10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/neacklace" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="88dp"
+        android:layout_height="83dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginBottom="87dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView9"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        app:srcCompat="@drawable/watch2" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="97dp"
+        android:layout_height="103dp"
+        android:layout_marginBottom="320dp"
+        android:rotation="-2"
+        android:rotationX="-2"
+        android:rotationY="19"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/bike" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="132dp"
+        android:layout_height="116dp"
+        android:layout_marginTop="32dp"
+        android:rotation="1"
+        android:rotationX="6"
+        android:rotationY="19"
+        app:layout_constraintBottom_toTopOf="@+id/allPosts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.359"
+        app:srcCompat="@drawable/glasses" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="80dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="328dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/watch3" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

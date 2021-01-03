@@ -99,22 +99,6 @@ public class AddReport extends AppCompatActivity {
                         Toast.makeText(AddReport.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
                     }
                 });
-                /* fStore.collection("report").document("unchecked").collection(subject_spinner).add(forms).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(Report.this,"Your Report added Successfully",Toast.LENGTH_SHORT).show();
-                        if(ObjectImage!=null) {
-                            DR=documentReference.getId();
-                            uploadImageToFirebase(imageUri);
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Report.this,"Failure in adding content, please try again!",Toast.LENGTH_SHORT).show();
-                    }
-                });*/
             }
         });
         ObjectImage.setOnClickListener(new View.OnClickListener() {

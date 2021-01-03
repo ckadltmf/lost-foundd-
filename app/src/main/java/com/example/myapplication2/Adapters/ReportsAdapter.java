@@ -10,7 +10,7 @@ package com.example.myapplication2.Adapters;
         import android.widget.Button;
         import android.widget.LinearLayout;
         import android.widget.TextView;
-        import android.widget.Toast;
+
 
         import com.example.myapplication2.ClassObject.ObjectReport;
         import com.example.myapplication2.R;
@@ -76,7 +76,6 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.MyViewHo
             ViewPostButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
                     Intent intent= new Intent(context, ViewReport.class);
                     ObjectReport report=new ObjectReport(reportsArrayList.get(position));
                     intent.putExtra("ObjectReport",report);
@@ -87,7 +86,6 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.MyViewHo
             ViewProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
                     Intent intent= new Intent(context, ViewProfile.class);
                     intent.putExtra("CALLED","VIEWREPORT");
                     intent.putExtra("UserObject",reportsArrayList.get(position).getUserID());
