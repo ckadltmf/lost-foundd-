@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,8 +21,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication2.MainPages.Login;
 import com.example.myapplication2.MainPages.MainActivity;
 import com.example.myapplication2.R;
+import com.example.myapplication2.SidePages.Credits;
+import com.example.myapplication2.SidePages.Search;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -108,6 +113,40 @@ public class AddReport extends AppCompatActivity {
                 startActivityForResult(openGalleryIntent,1000);
             }
         });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.my_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId())
+        {
+            case R.id.Search:
+                Toast.makeText(this,"Search",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), Search.class));
+                return true;
+            case R.id.refresh:
+                Toast.makeText(this,"Refresh",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),AddReport.class));
+                return true;
+            case R.id.Credits:
+                Toast.makeText(this,"Credits",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), Credits.class));
+                return true;
+
+            case R.id.logOut:
+                FirebaseAuth.getInstance().signOut();//logout
+                startActivity(new Intent(getApplicationContext(), Login.class));
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
 
     }
     @Override
